@@ -1,5 +1,7 @@
 # Deployment Vercel
 
+Production: [findmew.vercel.app](https://findmew.vercel.app). Repository GitHub sudah terhubung untuk deployment otomatis dari branch `main`.
+
 Import repository `kaylrad/FindMew` dari root. `vercel.json` mengatur build `npm run build`, output `frontend/dist`, region Singapore, dan fungsi API Node.js 22. Dependency dipasang melalui `npm ci`.
 
 ## Environment server

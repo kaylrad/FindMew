@@ -5,6 +5,7 @@ import request from 'supertest';
 import { createServerlessHandler } from '../src/serverless.js';
 import { configuration } from '../src/config.js';
 import { createApp } from '../src/app.js';
+import { pagination } from '../src/validation.js';
 
 test('serverless handler preserves API paths and bodies and shares one cold-start initialization', async () => {
   let starts = 0;
@@ -39,6 +40,29 @@ test('serverless startup failure returns a safe no-store response and permits re
   assert.ok(!failed.text.includes('private runtime detail'));
   assert.equal((await request(handler).get('/api/health')).text, 'ready');
   assert.equal(calls, 2);
+});
+
+test('Vercel rewrite metadata does not invalidate strict API pagination', async () => {
+  const handler = createServerlessHandler(() => {
+    const app = express();
+    app.get('/api/explore/map', (req, res) => {
+      try {
+        res.json(pagination(req));
+      } catch {
+        res.sendStatus(400);
+      }
+    });
+    return app;
+  });
+  const result = await request(handler).get(
+    '/api/explore/map?__findmew_route=explore%2Fmap&limit=100&offset=20'
+  );
+  assert.equal(result.status, 200);
+  assert.deepEqual(result.body, { limit: 100, offset: 20 });
+  assert.equal(
+    (await request(handler).get('/api/explore/map?__findmew_route=explore%2Fmap&unknown=1')).status,
+    400
+  );
 });
 
 test('hosted configuration permits only exact configured Vercel origins and rejects hosted demo', () => {
