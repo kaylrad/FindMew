@@ -1,0 +1,62 @@
+.findmew-map {
+  font-family: var(--font-sans);
+  background: #e8eddf;
+}
+.findmew-map .maplibregl-canvas:focus-visible {
+  outline: 3px solid #9eaf87;
+  outline-offset: -3px;
+}
+.findmew-map .maplibregl-ctrl-attrib {
+  font-size: 9px;
+  line-height: 15px;
+}
+.findmew-map .maplibregl-ctrl-group {
+  border: 1px solid #e0e4d5;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px #454c3b18;
+}
+.findmew-map .maplibregl-ctrl-group button {
+  width: 34px;
+  height: 34px;
+}
+.findmew-map-pin {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 48px;
+  padding: 4px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.findmew-map-pin-disc {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 3px solid white;
+  border-radius: 50% 50% 50% 8px;
+  background: #dba780;
+  box-shadow: 0 4px 9px #5a604830;
+  transform: rotate(-45deg);
+}
+.findmew-map-pin-disc > span {
+  display: block;
+  transform: rotate(45deg);
+  font-size: 20px;
+  line-height: 1;
+}
+.findmew-map-pin:focus-visible {
+  outline: 3px solid #566b42;
+  outline-offset: 4px;
+}
+.findmew-map-location {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: #8a9f77;
+  box-shadow: 0 0 0 7px #91a67835;
+}

@@ -1,0 +1,1115 @@
+[
+  {
+    "file": "home-OnlineStore.png",
+    "bytes": 866,
+    "sha256": "262a75bfe589428ad7cb20171b7981a98e6bac84250731db99d54dd511f8e12e"
+  },
+  {
+    "file": "home-Room.png",
+    "bytes": 1015,
+    "sha256": "21c843653a7f6d5fd22d3d31fb794614171e7c42c2f905228822bd5c0411ffab"
+  },
+  {
+    "file": "home-CatFootprint.png",
+    "bytes": 1376,
+    "sha256": "653741e28c7ae9740eeb9861ec2b9c0d79eebc3be6faa04bdce84ce1f3fb939a"
+  },
+  {
+    "file": "home-Icon.svg",
+    "bytes": 1423,
+    "sha256": "c74bc411e582fecab7a77c7af3ca0db1d5efdab02a66d7b81f97a0484f62abb6",
+    "width": "21",
+    "height": "21",
+    "viewBox": "0 0 21 21"
+  },
+  {
+    "file": "home-Coin.svg",
+    "bytes": 795,
+    "sha256": "1c9c9f0d1fed27d9bdb1674666457055576e90ba231d8bade4bd9f20cbeb6f9f",
+    "width": "19",
+    "height": "22",
+    "viewBox": "0 0 19 22"
+  },
+  {
+    "file": "home-Icon1.svg",
+    "bytes": 353,
+    "sha256": "f9f419ec0f460ac1988060626ccbac9a633707cdf1858aff6d809f4617ecca06",
+    "width": "14",
+    "height": "14",
+    "viewBox": "0 0 14 14"
+  },
+  {
+    "file": "home-Icon2.svg",
+    "bytes": 552,
+    "sha256": "2f18e8702fc7b47ffe32ef84176a07132cf5a4822e12eea550ba3beae0e1f522",
+    "width": "20",
+    "height": "21",
+    "viewBox": "0 0 20 21"
+  },
+  {
+    "file": "home-Vector.svg",
+    "bytes": 495,
+    "sha256": "25752dd7e47f09a799eaf64a1e015348206730be2208ff6eb96b15a82286794a",
+    "width": "633.969",
+    "height": "513.999",
+    "viewBox": "0 0 633.969 513.999"
+  },
+  {
+    "file": "home-Vector1.svg",
+    "bytes": 258,
+    "sha256": "dda81fe73db37b6c88afa8ea352de883c12bbb8cac1eb7597bd7633c7ef9a05f",
+    "width": "633.969",
+    "height": "421.459",
+    "viewBox": "0 0 633.969 421.459"
+  },
+  {
+    "file": "home-Vector2.svg",
+    "bytes": 255,
+    "sha256": "cef5c1bd63991074de9fa71d453984997a297b41d606606cd2d3c28db300dc43",
+    "width": "633.22",
+    "height": "5.38379",
+    "viewBox": "0 0 633.22 5.38379"
+  },
+  {
+    "file": "home-Vector3.svg",
+    "bytes": 747,
+    "sha256": "c35be722a5b4ce6462162a716ee13b1383b635ba26991cbfc6312541f0f0ada6",
+    "width": "633.969",
+    "height": "416.544",
+    "viewBox": "0 0 633.969 416.544"
+  },
+  {
+    "file": "home-Vector4.svg",
+    "bytes": 500,
+    "sha256": "f09930e18dffaaff198f8146cd981ed33161226ba6ed04e57b806c83e53a83ef",
+    "width": "117.21",
+    "height": "138.139",
+    "viewBox": "0 0 117.21 138.139"
+  },
+  {
+    "file": "home-Vector5.svg",
+    "bytes": 425,
+    "sha256": "f6dac1bba0b5a9cb69f9a1f451d766cb7091b71535e69820420fb8d9ecfc7819",
+    "width": "99.9821",
+    "height": "122.481",
+    "viewBox": "0 0 99.9821 122.481"
+  },
+  {
+    "file": "home-Vector6.svg",
+    "bytes": 303,
+    "sha256": "1b8d4cdfb563f0a0e8edddc3584d50f8325a4bcd7fa1dfee36421853511cad1c",
+    "width": "99.9821",
+    "height": "51.4825",
+    "viewBox": "0 0 99.9821 51.4825"
+  },
+  {
+    "file": "home-Vector7.svg",
+    "bytes": 301,
+    "sha256": "9a13c10e47f671746ab6a7c58785288a7e1dbc986eeb234270f4cb654d0473c4",
+    "width": "99.9821",
+    "height": "35.1442",
+    "viewBox": "0 0 99.9821 35.1442"
+  },
+  {
+    "file": "home-Vector8.svg",
+    "bytes": 406,
+    "sha256": "0cf138127df23a056515953ebd29857cc3b1f119ce4ca136fc15be4ba0f482d8",
+    "width": "29.9946",
+    "height": "24.2271",
+    "viewBox": "0 0 29.9946 24.2271"
+  },
+  {
+    "file": "home-Vector9.svg",
+    "bytes": 342,
+    "sha256": "1fffcbc926cfbb86b0a1fc9976911b68893cf06f0d8731480865384abd921321",
+    "width": "106.648",
+    "height": "121.135",
+    "viewBox": "0 0 106.648 121.135"
+  },
+  {
+    "file": "home-Vector10.svg",
+    "bytes": 305,
+    "sha256": "c8db00923400149ca1fde9548620ae94b88b03961be231f166c658cb223fa72c",
+    "width": "128.875",
+    "height": "5.56335",
+    "viewBox": "0 0 128.875 5.56335"
+  },
+  {
+    "file": "home-Vector11.svg",
+    "bytes": 255,
+    "sha256": "91e01f7f4a531a819b17a76b782bfce7d8574ba33563a15151ef9536ba2ec5c2",
+    "width": "76.653",
+    "height": "54.5109",
+    "viewBox": "0 0 76.653 54.5109"
+  },
+  {
+    "file": "home-Vector12.svg",
+    "bytes": 258,
+    "sha256": "2c1ce195f7ed30880b341d0b68c1e225f8b789680c12d0f02bf4aae5f088d9b7",
+    "width": "66.6548",
+    "height": "46.4352",
+    "viewBox": "0 0 66.6548 46.4352"
+  },
+  {
+    "file": "home-Vector13.svg",
+    "bytes": 344,
+    "sha256": "900d394113657250869baed1d21fc5423bbf9a27df0537bd385094a325584311",
+    "width": "25.8287",
+    "height": "18.1913",
+    "viewBox": "0 0 25.8287 18.1913"
+  },
+  {
+    "file": "home-Vector14.svg",
+    "bytes": 348,
+    "sha256": "fb3e46e2c6621a5a59010105ab38ee17bfd96d26e9968e1e9297860fe848cfd5",
+    "width": "10.5562",
+    "height": "2.06418",
+    "viewBox": "0 0 10.5562 2.06418"
+  },
+  {
+    "file": "home-Vector15.svg",
+    "bytes": 303,
+    "sha256": "561457711c98aa08c4c6723fe04c9f90c351eaa08b97d609f7c1fd08fe95085a",
+    "width": "96.656",
+    "height": "4.17251",
+    "viewBox": "0 0 96.656 4.17251"
+  },
+  {
+    "file": "home-Vector16.svg",
+    "bytes": 559,
+    "sha256": "5b2acb9932ec0731588706cf698deb6762d6da2fcf307257a451c824241ef307",
+    "width": "53.9189",
+    "height": "61.9136",
+    "viewBox": "0 0 53.9189 61.9136"
+  },
+  {
+    "file": "home-Vector17.svg",
+    "bytes": 274,
+    "sha256": "d3f2b7b6be24e698016a7a69b07bc8590c8976591b75ed0c862023d66c84637b",
+    "width": "39.9929",
+    "height": "28.2649",
+    "viewBox": "0 0 39.9929 28.2649"
+  },
+  {
+    "file": "home-Vector18.svg",
+    "bytes": 258,
+    "sha256": "6303678763a76295ca538c6378c6bc0d21a06eda468c6a82b307ce2464d3ae72",
+    "width": "39.9929",
+    "height": "6.05677",
+    "viewBox": "0 0 39.9929 6.05677"
+  },
+  {
+    "file": "home-Vector19.svg",
+    "bytes": 491,
+    "sha256": "eca7191d4669bfac132a2d7bfa4465fe494b5aa60ebc5aa7a7a0f56f93fbee37",
+    "width": "64.4373",
+    "height": "37.0585",
+    "viewBox": "0 0 64.4373 37.0585"
+  },
+  {
+    "file": "home-Vector20.svg",
+    "bytes": 264,
+    "sha256": "43eeeb47a85dcb2ca04a97c8f5b69227d77f4a4604d6f2ff04a3e3f56e9b4d2a",
+    "width": "41.6592",
+    "height": "10.7676",
+    "viewBox": "0 0 41.6592 10.7676"
+  },
+  {
+    "file": "home-Vector21.svg",
+    "bytes": 261,
+    "sha256": "f31bab0af75ae5e8cd81ca3554e3a3cffd4f5efa5e9fe454437cb70883c08e55",
+    "width": "30.8278",
+    "height": "6.72974",
+    "viewBox": "0 0 30.8278 6.72974"
+  },
+  {
+    "file": "home-Vector22.svg",
+    "bytes": 261,
+    "sha256": "cc95d5ab98ee48f7df8e4eedb044eb5e406891f8c808c56dcd86f61ce86c87e5",
+    "width": "30.8278",
+    "height": "5.38379",
+    "viewBox": "0 0 30.8278 5.38379"
+  },
+  {
+    "file": "home-Vector23.svg",
+    "bytes": 420,
+    "sha256": "3739b471acbc20350d7e8ef3a8def191ae866766aa8a38eaf3d11558fb527ba5",
+    "width": "416.115",
+    "height": "90.5282",
+    "viewBox": "0 0 416.115 90.5282"
+  },
+  {
+    "file": "home-Vector24.svg",
+    "bytes": 400,
+    "sha256": "9f2538334fcfb7905092cbeab9ec7e86983434fba5541602a7626947d7747a04",
+    "width": "390.756",
+    "height": "84.493",
+    "viewBox": "0 0 390.756 84.493"
+  },
+  {
+    "file": "home-Vector25.svg",
+    "bytes": 10070,
+    "sha256": "f40ee34336e3fc4b86ddb5e8650ce5f64566c2c515710e7ee2cd9b304d20ecc0",
+    "width": "352.956",
+    "height": "68.784",
+    "viewBox": "0 0 352.956 68.784"
+  },
+  {
+    "file": "home-Vector26.svg",
+    "bytes": 418,
+    "sha256": "dac33e38f1c9de292bda13941f48a639f52fdba6f07b8642ed750e816fe42216",
+    "width": "195.954",
+    "height": "45.2641",
+    "viewBox": "0 0 195.954 45.2641"
+  },
+  {
+    "file": "home-Vector27.svg",
+    "bytes": 314,
+    "sha256": "9aab02edb536e13ff18ef5d8dddd911876e5c8f31131eeb42330ddc6dc516edf",
+    "width": "140.626",
+    "height": "50.2934",
+    "viewBox": "0 0 140.626 50.2934"
+  },
+  {
+    "file": "home-Vector28.svg",
+    "bytes": 403,
+    "sha256": "8223319056df0465315efd8769bf19c865dbfac40d5efc8207b88b39ddff834b",
+    "width": "140.626",
+    "height": "36.2113",
+    "viewBox": "0 0 140.626 36.2113"
+  },
+  {
+    "file": "home-Vector29.svg",
+    "bytes": 404,
+    "sha256": "52584727ff3d64797d3328cae252620f75096ebe711e6e3e052f652afe6b239a",
+    "width": "100.282",
+    "height": "19.1115",
+    "viewBox": "0 0 100.282 19.1115"
+  },
+  {
+    "file": "home-Icon3.svg",
+    "bytes": 1350,
+    "sha256": "c80d31cd8aea7e7793b1c5a6cf0bf343e1a850fd0c13864906d253546e2bab27",
+    "width": "12",
+    "height": "12",
+    "viewBox": "0 0 12 12"
+  },
+  {
+    "file": "home-Frame2.svg",
+    "bytes": 964,
+    "sha256": "1f4f6f083446a85520c948a93dd116d4097aec3674f208f2aafef67b6c294c4c",
+    "width": "65",
+    "height": "65",
+    "viewBox": "0 0 65 65"
+  },
+  {
+    "file": "home-Ellipse3.svg",
+    "bytes": 964,
+    "sha256": "aae034f6d2f7045b962cc6e01255ec75d5b2d0ddd5573ab61e257fe940115032",
+    "width": "65",
+    "height": "65",
+    "viewBox": "0 0 65 65"
+  },
+  {
+    "file": "home-Icon4.svg",
+    "bytes": 392,
+    "sha256": "99ee87196c394019b09abc913a2be86bba9f14deb8611ce71b60c44f1a409773",
+    "width": "20",
+    "height": "20",
+    "viewBox": "0 0 20 20"
+  },
+  {
+    "file": "home-Icon5.svg",
+    "bytes": 937,
+    "sha256": "e8042e89ea9fde541563e6aba646de63254ee837319e39f36c1e67f1446b06a7",
+    "width": "20",
+    "height": "20",
+    "viewBox": "0 0 20 20"
+  },
+  {
+    "file": "cats-IlustrasiOyen.svg",
+    "bytes": 16264,
+    "sha256": "cb22d48ea81c61e2425d478acdb2f0984606f2ba9ec5f97e5ba282f90d6c6abc",
+    "width": "57.8824",
+    "height": "62",
+    "viewBox": "0 0 57.8824 62"
+  },
+  {
+    "file": "cats-IlustrasiMujair.svg",
+    "bytes": 16276,
+    "sha256": "017d7925ce954ac95f3154f3001828065332c819701691ae88a03c45d4e0a551",
+    "width": "57.8824",
+    "height": "62",
+    "viewBox": "0 0 57.8824 62"
+  },
+  {
+    "file": "cats-IlustrasiHitam.svg",
+    "bytes": 16273,
+    "sha256": "f7d0f996f70cca23e63944047b01a4810e7487aae701487b2fb60c48a688842a",
+    "width": "57.8824",
+    "height": "62",
+    "viewBox": "0 0 57.8824 62"
+  },
+  {
+    "file": "cats-IlustrasiPutih.svg",
+    "bytes": 16265,
+    "sha256": "2ae99ab95d97a83f0dc9404b9c4e1d77df1bd3d131429d5a6bb163ff42348d2c",
+    "width": "57.8824",
+    "height": "62",
+    "viewBox": "0 0 57.8824 62"
+  },
+  {
+    "file": "rooms-IlustrasiRuanganHangat.svg",
+    "bytes": 15616,
+    "sha256": "8f7fc4a7c32161595dcd476b9f3cbcb25764183d0baa6e4917579d433e43ab13",
+    "width": "103",
+    "height": "223.298",
+    "viewBox": "0 0 103 223.298"
+  },
+  {
+    "file": "rooms-IlustrasiRuanganSenja.svg",
+    "bytes": 15385,
+    "sha256": "8c922fce076bb32d1ec6a6f961de9f20cdca26ea3f41e2d2e0cec5aea7038161",
+    "width": "103",
+    "height": "223.298",
+    "viewBox": "0 0 103 223.298"
+  },
+  {
+    "file": "rooms-IlustrasiRuanganRimbun.svg",
+    "bytes": 15384,
+    "sha256": "7137358a54c0ec5d9f52379ca1179e6583d1b442ebc8f7ff036c020487e6e2d1",
+    "width": "103",
+    "height": "223.298",
+    "viewBox": "0 0 103 223.298"
+  },
+  {
+    "file": "accessories-IlustrasiTopiKrem.svg",
+    "bytes": 550,
+    "sha256": "b56b273fe0a30afa88bdb3f7f5ff65a69ad36f6772fd3ef5e337b408152717f4",
+    "width": "60.6201",
+    "height": "40.5112",
+    "viewBox": "0 0 60.6201 40.5112"
+  },
+  {
+    "file": "warm-4-1486.svg",
+    "bytes": 457,
+    "sha256": "323953b88060b504d392197acb3d49dda290c47064cbc267ecb9440c4ef481e8",
+    "width": "550",
+    "height": "511",
+    "viewBox": "0 0 550 511"
+  },
+  {
+    "file": "warm-4-1488.svg",
+    "bytes": 234,
+    "sha256": "009a1d74b50060d6db035f4c57d3ae3c651c5bea637b78e7cf42bc231db420b6",
+    "width": "550",
+    "height": "419",
+    "viewBox": "0 0 550 419"
+  },
+  {
+    "file": "warm-4-1489.svg",
+    "bytes": 255,
+    "sha256": "b9cd562666016ff6c716ecb743896d229795befc996c40b6118f4cce7ef34dd4",
+    "width": "549.35",
+    "height": "5.35238",
+    "viewBox": "0 0 549.35 5.35238"
+  },
+  {
+    "file": "warm-4-1490.svg",
+    "bytes": 720,
+    "sha256": "d063aaeec183b361623c3feae80c009d9dab72cb5bb1acdebf2b58ab15500866",
+    "width": "550",
+    "height": "414.1",
+    "viewBox": "0 0 550 414.1"
+  },
+  {
+    "file": "warm-4-1491.svg",
+    "bytes": 504,
+    "sha256": "6875baf7081988d2f854f627daf0cff5810080458a70f32ce98b529f8dff68fe",
+    "width": "102.422",
+    "height": "137.366",
+    "viewBox": "0 0 102.422 137.366"
+  },
+  {
+    "file": "warm-4-1492.svg",
+    "bytes": 429,
+    "sha256": "f350584b372cd2b414b6b1d127fc0131284a90e037672b902a9370e1dcc42557",
+    "width": "86.7395",
+    "height": "121.767",
+    "viewBox": "0 0 86.7395 121.767"
+  },
+  {
+    "file": "warm-4-1493.svg",
+    "bytes": 303,
+    "sha256": "2fdcd748f7cbefb3f9fae3ec74b4b3206d6cf9af0c10d51ecaaf81918f3a1735",
+    "width": "86.7395",
+    "height": "51.1821",
+    "viewBox": "0 0 86.7395 51.1821"
+  },
+  {
+    "file": "warm-4-1494.svg",
+    "bytes": 302,
+    "sha256": "1ab0a572acb798aba51cf375255edfab2203af07df723a3534bb49bb9f1a8f6b",
+    "width": "86.7395",
+    "height": "34.9392",
+    "viewBox": "0 0 86.7395 34.9392"
+  },
+  {
+    "file": "warm-4-1495.svg",
+    "bytes": 406,
+    "sha256": "73c40a8dabac534bf4cff113e00e22cf7c8ff1a63d71a39941b18e777d246542",
+    "width": "26.0218",
+    "height": "24.0857",
+    "viewBox": "0 0 26.0218 24.0857"
+  },
+  {
+    "file": "warm-4-1496.svg",
+    "bytes": 342,
+    "sha256": "d2273adb6e3c39dc7d748e772b02b76d6fae74f25d5c97831540035ca35541dd",
+    "width": "92.5221",
+    "height": "120.429",
+    "viewBox": "0 0 92.5221 120.429"
+  },
+  {
+    "file": "warm-4-1497.svg",
+    "bytes": 304,
+    "sha256": "a5b224de7ec2138be7f2b375ff2000a99e08f5e4f183f731f8c5bbf344b687bf",
+    "width": "112.542",
+    "height": "5.56335",
+    "viewBox": "0 0 112.542 5.56335"
+  },
+  {
+    "file": "warm-4-1498.svg",
+    "bytes": 258,
+    "sha256": "79f1ce70ac606e1fd895b16c270350e94746055e1139e97f69f784935771ded4",
+    "width": "66.5003",
+    "height": "54.1929",
+    "viewBox": "0 0 66.5003 54.1929"
+  },
+  {
+    "file": "warm-4-1499.svg",
+    "bytes": 258,
+    "sha256": "ec2fdea4c20081dbb7a8548b42f4b30043dc1f305cb34a7bbf22d66c1c454193",
+    "width": "57.8263",
+    "height": "46.1643",
+    "viewBox": "0 0 57.8263 46.1643"
+  },
+  {
+    "file": "warm-4-1500.svg",
+    "bytes": 343,
+    "sha256": "f5db690ae2ab729c4cbc508f93bd0ad76930df0d48eb66a15f286805201020b7",
+    "width": "22.4077",
+    "height": "18.0852",
+    "viewBox": "0 0 22.4077 18.0852"
+  },
+  {
+    "file": "warm-4-1501.svg",
+    "bytes": 347,
+    "sha256": "340a3e56558304740d1a25d534c76d7571d92495dd527a4d6190a60720f4b5cf",
+    "width": "9.34229",
+    "height": "2.06022",
+    "viewBox": "0 0 9.34229 2.06022"
+  },
+  {
+    "file": "warm-4-1502.svg",
+    "bytes": 305,
+    "sha256": "3a0a910f2618cd41d62f2c8c129291858a2b2e540964a896e4fd7cb89abfebaa",
+    "width": "84.4065",
+    "height": "4.17251",
+    "viewBox": "0 0 84.4065 4.17251"
+  },
+  {
+    "file": "warm-4-1503.svg",
+    "bytes": 547,
+    "sha256": "182f5cef9ddeb0d2dbdc7b5e68ef3a9b9be87605e56471c0f31c46722bed2e0a",
+    "width": "46.7774",
+    "height": "61.5524",
+    "viewBox": "0 0 46.7774 61.5524"
+  },
+  {
+    "file": "warm-4-1504.svg",
+    "bytes": 263,
+    "sha256": "be6e6777ccecf60682feebe04f24982c53142204abdac38c9779daed900a24f6",
+    "width": "34.6958",
+    "height": "28.1",
+    "viewBox": "0 0 34.6958 28.1"
+  },
+  {
+    "file": "warm-4-1505.svg",
+    "bytes": 258,
+    "sha256": "de2bcdfc6fb8c3838c1525ae26304463b8532404d38689474bf15da86e944afa",
+    "width": "34.6958",
+    "height": "6.02143",
+    "viewBox": "0 0 34.6958 6.02143"
+  },
+  {
+    "file": "warm-4-1506.svg",
+    "bytes": 489,
+    "sha256": "20536cce3f208f2647894254b8b8300e1aa23b0cde8d3b60a098e906df66c574",
+    "width": "56.271",
+    "height": "36.8504",
+    "viewBox": "0 0 56.271 36.8504"
+  },
+  {
+    "file": "warm-4-1507.svg",
+    "bytes": 264,
+    "sha256": "d9ddface67727e1ac0882bacbe9ddd76d812209c03def6991dffcb6e383d9559",
+    "width": "36.1414",
+    "height": "10.7048",
+    "viewBox": "0 0 36.1414 10.7048"
+  },
+  {
+    "file": "warm-4-1508.svg",
+    "bytes": 261,
+    "sha256": "fc5d77cb49603fade935ad0f4fe9592c51edde93dc0c249a2778decb96e4f6b1",
+    "width": "26.7447",
+    "height": "6.69048",
+    "viewBox": "0 0 26.7447 6.69048"
+  },
+  {
+    "file": "warm-4-1509.svg",
+    "bytes": 261,
+    "sha256": "83db45f080020b53234a39a7f664c3fca4a1310a897251f6add39cf31fc4715a",
+    "width": "26.7447",
+    "height": "5.35238",
+    "viewBox": "0 0 26.7447 5.35238"
+  },
+  {
+    "file": "warm-4-1510.svg",
+    "bytes": 354,
+    "sha256": "6d4a66d41bbc5f42d4993603e9c08cfe3bd4ec7df1348dca1704a0e8edda98dd",
+    "width": "361",
+    "height": "90",
+    "viewBox": "0 0 361 90"
+  },
+  {
+    "file": "warm-4-1511.svg",
+    "bytes": 336,
+    "sha256": "301826a2bdccfeee39ae276d21873016adc3ed2d3d9024b4661de975c8bd096d",
+    "width": "339",
+    "height": "84",
+    "viewBox": "0 0 339 84"
+  },
+  {
+    "file": "warm-4-1512.svg",
+    "bytes": 8846,
+    "sha256": "ea9719efd4f14080640e05d9b07ebb117ae8038dac0db0659bb6db30654321d6",
+    "width": "306.391",
+    "height": "68.3908",
+    "viewBox": "0 0 306.391 68.3908"
+  },
+  {
+    "file": "warm-4-1513.svg",
+    "bytes": 349,
+    "sha256": "ebf5117e7c53aef7c555f35564118816608035112106ba2221b92bdbbefd66dc",
+    "width": "170",
+    "height": "45",
+    "viewBox": "0 0 170 45"
+  },
+  {
+    "file": "warm-4-1514.svg",
+    "bytes": 287,
+    "sha256": "534d2ccc4e745150f74e45dd9f4475b7c307b383f647b984e24491960e92dc1b",
+    "width": "122",
+    "height": "50",
+    "viewBox": "0 0 122 50"
+  },
+  {
+    "file": "warm-4-1515.svg",
+    "bytes": 331,
+    "sha256": "031c280e134afba5d5b20df026211076453dadbf2ed7e91ed86950c00b47a2e7",
+    "width": "122",
+    "height": "36",
+    "viewBox": "0 0 122 36"
+  },
+  {
+    "file": "warm-4-1516.svg",
+    "bytes": 334,
+    "sha256": "2cc8a9dfcfa27e9c81cf312d35435cda9d88411f0473576b86e765329712f99b",
+    "width": "87",
+    "height": "19",
+    "viewBox": "0 0 87 19"
+  },
+  {
+    "file": "cat-oyen.svg",
+    "bytes": 16262,
+    "sha256": "284cfa38fa1078e458f4c6a18567b4ffac1a47aa5392fa9d78e85d03d375ca49",
+    "width": "190.653",
+    "height": "204.215",
+    "viewBox": "0 0 190.653 204.215"
+  },
+  {
+    "file": "cat-mujair.svg",
+    "bytes": 16276,
+    "sha256": "017d7925ce954ac95f3154f3001828065332c819701691ae88a03c45d4e0a551",
+    "width": "57.8824",
+    "height": "62",
+    "viewBox": "0 0 57.8824 62"
+  },
+  {
+    "file": "cat-hitam.svg",
+    "bytes": 16273,
+    "sha256": "f7d0f996f70cca23e63944047b01a4810e7487aae701487b2fb60c48a688842a",
+    "width": "57.8824",
+    "height": "62",
+    "viewBox": "0 0 57.8824 62"
+  },
+  {
+    "file": "cat-putih.svg",
+    "bytes": 16265,
+    "sha256": "2ae99ab95d97a83f0dc9404b9c4e1d77df1bd3d131429d5a6bb163ff42348d2c",
+    "width": "57.8824",
+    "height": "62",
+    "viewBox": "0 0 57.8824 62"
+  },
+  {
+    "file": "room-senja.svg",
+    "bytes": 14880,
+    "sha256": "cc09410e3d0c8b2a68d671e996b8cf024c08284f9a522050357b84aa7e4e011d",
+    "width": "393",
+    "height": "852",
+    "viewBox": "0 0 393 852"
+  },
+  {
+    "file": "room-rimbun.svg",
+    "bytes": 14880,
+    "sha256": "9ce45a794f044f14ea6a0a748f875a219350e0bec41323e397f6322f06f2552b",
+    "width": "393",
+    "height": "852",
+    "viewBox": "0 0 393 852"
+  },
+  {
+    "file": "home-Vector33.svg",
+    "bytes": 1959,
+    "sha256": "82f513c089101a56f818fd07e97514e743d328f78e298d19136a274421340d2d",
+    "width": "234.799",
+    "height": "239.689",
+    "viewBox": "0 0 234.799 239.689"
+  },
+  {
+    "file": "home-Vector34.svg",
+    "bytes": 1449,
+    "sha256": "8b1dcd667729a151f0045f02f8a1b000f8a61a7a12e9b0c31063ac59a9d09ddd",
+    "width": "176.49",
+    "height": "142.407",
+    "viewBox": "0 0 176.49 142.407"
+  },
+  {
+    "file": "home-Vector35.svg",
+    "bytes": 838,
+    "sha256": "9103c73d78c4b05c05ee6846d46f878b7122ae741dfe0ca64e9ae6a15cbd89d9",
+    "width": "98.731",
+    "height": "64.0055",
+    "viewBox": "0 0 98.731 64.0055"
+  },
+  {
+    "file": "home-Vector36.svg",
+    "bytes": 463,
+    "sha256": "341f0b708d2599e754367bf281bdf46911f28947079dc9856f05bdfc436b0235",
+    "width": "89.9572",
+    "height": "14.6316",
+    "viewBox": "0 0 89.9572 14.6316"
+  },
+  {
+    "file": "home-Vector37.svg",
+    "bytes": 829,
+    "sha256": "f8022894863073dfff4c276de17ea9a6991ae603fef8f71047858a940d51a8eb",
+    "width": "41.3082",
+    "height": "28.0683",
+    "viewBox": "0 0 41.3082 28.0683"
+  },
+  {
+    "file": "home-Vector38.svg",
+    "bytes": 437,
+    "sha256": "1c4a0cfbb6c101690799db6a4495a7e9c85cbd14b1e08c7f63777da71dc04464",
+    "width": "66.6073",
+    "height": "45.5472",
+    "viewBox": "0 0 66.6073 45.5472"
+  },
+  {
+    "file": "home-Vector39.svg",
+    "bytes": 477,
+    "sha256": "fb5a807a9a20ddd774d82d7b4bb94e2da0acf877546b002b47bbf406f38ae508",
+    "width": "66.4708",
+    "height": "45.6592",
+    "viewBox": "0 0 66.4708 45.6592"
+  },
+  {
+    "file": "home-Vector40.svg",
+    "bytes": 491,
+    "sha256": "ee7d9670c273e99c048e060585ed1df9027afbfdd58fbcee1811b79784760683",
+    "width": "29.9236",
+    "height": "28.6921",
+    "viewBox": "0 0 29.9236 28.6921"
+  },
+  {
+    "file": "home-Vector41.svg",
+    "bytes": 445,
+    "sha256": "19ff04b16a7da28f2867175947eba43e4790dbbef017a2766248a6f4e176d12f",
+    "width": "17.7178",
+    "height": "28.6921",
+    "viewBox": "0 0 17.7178 28.6921"
+  },
+  {
+    "file": "home-Vector42.svg",
+    "bytes": 336,
+    "sha256": "b1641fdf2b3f58d88b9a6242473cecdec68d15581c86b15b84ec5ac82eed9b2f",
+    "width": "6.33535",
+    "height": "7.96764",
+    "viewBox": "0 0 6.33535 7.96764"
+  },
+  {
+    "file": "home-Vector43.svg",
+    "bytes": 609,
+    "sha256": "99d879c9803fcf73be071b80215d794e606a494f4eda75e872c920ae637e12ed",
+    "width": "29.6554",
+    "height": "28.0951",
+    "viewBox": "0 0 29.6554 28.0951"
+  },
+  {
+    "file": "home-Vector44.svg",
+    "bytes": 550,
+    "sha256": "653783eb9e56320e8315753e1620b1c71c4b99b75c7ab932d49268657ebe3b1e",
+    "width": "16.7441",
+    "height": "28.0951",
+    "viewBox": "0 0 16.7441 28.0951"
+  },
+  {
+    "file": "home-Vector45.svg",
+    "bytes": 338,
+    "sha256": "e65094e94b7560b2800a2447de805c8c9d785d82e98de6b1167235b27db0761a",
+    "width": "6.34437",
+    "height": "7.88179",
+    "viewBox": "0 0 6.34437 7.88179"
+  },
+  {
+    "file": "home-Vector46.svg",
+    "bytes": 400,
+    "sha256": "cd10b98eaff0e2e390d382fa36c44b0180d8bf6ca86ab6de4d30216dc7b54926",
+    "width": "25.8818",
+    "height": "26.3068",
+    "viewBox": "0 0 25.8818 26.3068"
+  },
+  {
+    "file": "home-Vector47.svg",
+    "bytes": 459,
+    "sha256": "007ed3731d83c5758617b47a258341669877354d66b77f35ac619775e9d3aa2b",
+    "width": "14.7705",
+    "height": "15.2471",
+    "viewBox": "0 0 14.7705 15.2471"
+  },
+  {
+    "file": "home-Vector48.svg",
+    "bytes": 549,
+    "sha256": "0058db5a37ad36b81f5d450616b40568a9378e2e152e2e57790b7db8e4f4354b",
+    "width": "25.75",
+    "height": "26.2424",
+    "viewBox": "0 0 25.75 26.2424"
+  },
+  {
+    "file": "home-Vector49.svg",
+    "bytes": 438,
+    "sha256": "b3b29ed9d813480b2d0c765ac306c936c22d1de147b3c535d0865339f70b4564",
+    "width": "14.6434",
+    "height": "15.3792",
+    "viewBox": "0 0 14.6434 15.3792"
+  },
+  {
+    "file": "home-Vector50.svg",
+    "bytes": 489,
+    "sha256": "675edab1eb40faa1761d5bd91d7ded182c53f6383ef0eeeae46e23659875cd54",
+    "width": "22.2956",
+    "height": "6.44949",
+    "viewBox": "0 0 22.2956 6.44949"
+  },
+  {
+    "file": "home-Vector51.svg",
+    "bytes": 543,
+    "sha256": "ecc43d4f750a5937c7b5d10b47fa93dfdf865694592d4497d76285e1c0504dff",
+    "width": "21.9702",
+    "height": "6.66145",
+    "viewBox": "0 0 21.9702 6.66145"
+  },
+  {
+    "file": "home-Vector52.svg",
+    "bytes": 1250,
+    "sha256": "071a9b4a8a23e8a1ad75d8a11b5431f7a66af420fb3b58ecdc2c5b560a2a35fe",
+    "width": "111.749",
+    "height": "75.7222",
+    "viewBox": "0 0 111.749 75.7222"
+  },
+  {
+    "file": "home-Vector53.svg",
+    "bytes": 531,
+    "sha256": "1e0b932201cdb8949d9324efe16df53b3f4abd929a5a8ece42671a2367061c53",
+    "width": "35.8638",
+    "height": "51.6553",
+    "viewBox": "0 0 35.8638 51.6553"
+  },
+  {
+    "file": "home-Vector54.svg",
+    "bytes": 512,
+    "sha256": "6778f8689c401ea9461d1d82c0f505c0da7992383f5c9baf47becf74144b1180",
+    "width": "36.2208",
+    "height": "50.5532",
+    "viewBox": "0 0 36.2208 50.5532"
+  },
+  {
+    "file": "home-Vector55.svg",
+    "bytes": 471,
+    "sha256": "432af2cf2c0a7b5a683f37106860829850bab227f57cadb71e35fece9ad8168b",
+    "width": "43.8616",
+    "height": "67.0356",
+    "viewBox": "0 0 43.8616 67.0356"
+  },
+  {
+    "file": "home-Vector56.svg",
+    "bytes": 476,
+    "sha256": "178df569eee79b62dcab08ff4625617cfedfca6c9de5c05b0c3efd156db1693a",
+    "width": "23.3289",
+    "height": "52.7963",
+    "viewBox": "0 0 23.3289 52.7963"
+  },
+  {
+    "file": "home-Vector57.svg",
+    "bytes": 888,
+    "sha256": "62add45708f6a43ce0400d0bb552fb76e0234380f2c86aef1dfe6f14cd4f9a6f",
+    "width": "41.7228",
+    "height": "23.2272",
+    "viewBox": "0 0 41.7228 23.2272"
+  },
+  {
+    "file": "home-Vector58.svg",
+    "bytes": 456,
+    "sha256": "2e6903d52101240fb2e010657955211067013b68675e8e7e2362ea1ca22e548e",
+    "width": "13.9607",
+    "height": "17.4888",
+    "viewBox": "0 0 13.9607 17.4888"
+  },
+  {
+    "file": "home-Vector59.svg",
+    "bytes": 441,
+    "sha256": "2068377793d2ffbe93161ea4a0ee3377875aa53ce65b936591433e6d238df712",
+    "width": "11.5023",
+    "height": "6.14664",
+    "viewBox": "0 0 11.5023 6.14664"
+  },
+  {
+    "file": "home-Vector60.svg",
+    "bytes": 938,
+    "sha256": "ece688a490384034cf79a8216a65aee2eb04a47cf53e82798259b0a1ab7bca91",
+    "width": "42.0028",
+    "height": "23.3967",
+    "viewBox": "0 0 42.0028 23.3967"
+  },
+  {
+    "file": "home-Vector61.svg",
+    "bytes": 468,
+    "sha256": "867811fa28f6698e9f01ee4ca4bb01df08f777d5192560b7c41a91168f2d1e29",
+    "width": "14.106",
+    "height": "17.7993",
+    "viewBox": "0 0 14.106 17.7993"
+  },
+  {
+    "file": "home-Vector62.svg",
+    "bytes": 360,
+    "sha256": "20998b42f2444e5df928d7dc4c118b0e481342d010683846af72c10dd694051e",
+    "width": "11.2561",
+    "height": "3.53882",
+    "viewBox": "0 0 11.2561 3.53882"
+  },
+  {
+    "file": "home-Vector63.svg",
+    "bytes": 642,
+    "sha256": "0aa0a5669f16859206a7ca022674072200fc6759761ed13cfd8be9cbd22dc61c",
+    "width": "21.4928",
+    "height": "50.1423",
+    "viewBox": "0 0 21.4928 50.1423"
+  },
+  {
+    "file": "home-Vector64.svg",
+    "bytes": 626,
+    "sha256": "33d1eed0186b02a852c29a09153694286f958ad4336ac70d99df5f4f6d84e2b2",
+    "width": "13.4636",
+    "height": "50.1423",
+    "viewBox": "0 0 13.4636 50.1423"
+  },
+  {
+    "file": "home-Vector65.svg",
+    "bytes": 533,
+    "sha256": "11606f1965966d81b4d27b53805d38a629bba94d21d7162fa22e36586597f647",
+    "width": "21.3143",
+    "height": "50.5821",
+    "viewBox": "0 0 21.3143 50.5821"
+  },
+  {
+    "file": "home-Vector66.svg",
+    "bytes": 421,
+    "sha256": "2823019a9af93453e2bd0538a782ff50a759f9819f5604262b1bf80e39add9d7",
+    "width": "31.3571",
+    "height": "28.4387",
+    "viewBox": "0 0 31.3571 28.4387"
+  },
+  {
+    "file": "home-Vector67.svg",
+    "bytes": 694,
+    "sha256": "7e9a7ae2615b12d4a440d3fa8777d8abbf4dc701a2ab53d6ef7c1d95e264486c",
+    "width": "23.9516",
+    "height": "20.6905",
+    "viewBox": "0 0 23.9516 20.6905"
+  },
+  {
+    "file": "home-Vector68.svg",
+    "bytes": 466,
+    "sha256": "1ad4d0037d57d31e51219ee74fb52e2491e2c1b8abfaec823ab3816904288e75",
+    "width": "10.6979",
+    "height": "17.8979",
+    "viewBox": "0 0 10.6979 17.8979"
+  },
+  {
+    "file": "home-Vector69.svg",
+    "bytes": 639,
+    "sha256": "a46da55bc71209cc1137cbcc1dbcf39db1aa195d08ebc410af60f42535602323",
+    "width": "24.3114",
+    "height": "20.3584",
+    "viewBox": "0 0 24.3114 20.3584"
+  },
+  {
+    "file": "revision-oyenSheet.svg",
+    "bytes": 95337,
+    "sha256": "800bdb664659f2479c2c230951aea89c7a8b9b2270eb1402efcaaf6a8a7a9d5f",
+    "width": "832",
+    "height": "525",
+    "viewBox": "0 0 832 525"
+  },
+  {
+    "file": "revision-mujairSheet.svg",
+    "bytes": 95321,
+    "sha256": "4e9b4fa3fa234632fbcb0784c38a91ae0eb9d3c42b8e7f91eba5e4f84dfd6d57",
+    "width": "832",
+    "height": "525",
+    "viewBox": "0 0 832 525"
+  },
+  {
+    "file": "revision-hitamSheet.svg",
+    "bytes": 95321,
+    "sha256": "ff802bb1fbbb6ac6ad2776a4f99137b027020e0f60e8a0f81bd2dd60a17947c2",
+    "width": "832",
+    "height": "525",
+    "viewBox": "0 0 832 525"
+  },
+  {
+    "file": "revision-putihSheet.svg",
+    "bytes": 95258,
+    "sha256": "2874a19ec9d6621713f3346c916ef11af377e6d79373bf91e38f1cfe98af471b",
+    "width": "832",
+    "height": "525",
+    "viewBox": "0 0 832 525"
+  },
+  {
+    "file": "revision-hat1.svg",
+    "bytes": 479,
+    "sha256": "37033b6aabed76f96ca961798490ad0519414fd08c7defe7cd91a0e3d8738c98",
+    "width": "97.7628",
+    "height": "65.333",
+    "viewBox": "0 0 97.7628 65.333"
+  },
+  {
+    "file": "revision-hat2.svg",
+    "bytes": 479,
+    "sha256": "8c2086f2dea8ac7215a2b7fec87efcc2a3b31295ff2177e286d45ace7c63a9be",
+    "width": "97.7628",
+    "height": "65.333",
+    "viewBox": "0 0 97.7628 65.333"
+  },
+  {
+    "file": "revision-hat3.svg",
+    "bytes": 481,
+    "sha256": "0ea069925332d89f5d8271e2ceb2c1483ab34cd85708d206f900b42f9cdbad30",
+    "width": "97.7628",
+    "height": "65.333",
+    "viewBox": "0 0 97.7628 65.333"
+  },
+  {
+    "file": "revision-hat4.svg",
+    "bytes": 481,
+    "sha256": "23768a2c04166932bdac8ea9ee5d75c4dad651d537e820125869093cc813d6f8",
+    "width": "97.7628",
+    "height": "65.333",
+    "viewBox": "0 0 97.7628 65.333"
+  },
+  {
+    "file": "revision-hat5.svg",
+    "bytes": 481,
+    "sha256": "fafed659d909b7b98b3e1dd4af57711115f9f7d5cd390409b298b6ad2514b891",
+    "width": "97.7628",
+    "height": "65.333",
+    "viewBox": "0 0 97.7628 65.333"
+  },
+  {
+    "file": "revision-hat6.svg",
+    "bytes": 481,
+    "sha256": "6cf8a90c6b467f05204ccaacaec7e19ef3b93e5972b17c60ff852e297694c7e2",
+    "width": "97.7628",
+    "height": "65.333",
+    "viewBox": "0 0 97.7628 65.333"
+  },
+  {
+    "file": "revision-hatPatch1.png",
+    "bytes": 204059,
+    "sha256": "13d06d24b1e8e0ed3a2926ffca760e1543d1d8c81120c2824315c8b59e2a3b55"
+  },
+  {
+    "file": "revision-hatPatch3.png",
+    "bytes": 19714,
+    "sha256": "c951c4d033ffc1ba0f38b53eec548272afe63d6aceb3889bfbc430c0399b0ba8"
+  },
+  {
+    "file": "revision-glasses1.svg",
+    "bytes": 1051,
+    "sha256": "88383008009612cceaee65ce204f0d2df37cd57d5ba70d707a2bfb73f7d14a86",
+    "width": "130",
+    "height": "27",
+    "viewBox": "0 0 130 27"
+  },
+  {
+    "file": "revision-glasses2.svg",
+    "bytes": 872,
+    "sha256": "42afa16221d57b5ec9caef14de11a59368a7879bd485fc70d3166ed31a105611",
+    "width": "130",
+    "height": "27",
+    "viewBox": "0 0 130 27"
+  },
+  {
+    "file": "revision-glasses3.svg",
+    "bytes": 1250,
+    "sha256": "0c531552dbcaae424ca3d5403c2defee63ec8c58f4bf8cda41c8211b161075de",
+    "width": "130.24",
+    "height": "37",
+    "viewBox": "0 0 130.24 37"
+  },
+  {
+    "file": "revision-glasses4.svg",
+    "bytes": 1256,
+    "sha256": "8d2af6f9d599beee45bdf4bfe520c440dda0b8fe6639dc588aefe02299865abc",
+    "width": "130.24",
+    "height": "37",
+    "viewBox": "0 0 130.24 37"
+  },
+  {
+    "file": "revision-foodEmpty.svg",
+    "bytes": 1083,
+    "sha256": "972f7232b6abe87b3e98cf1014856c57995f5dd5dde701e8bed7175b34c93a9f",
+    "width": "195.954",
+    "height": "95.0704",
+    "viewBox": "0 0 195.954 95.0704"
+  },
+  {
+    "file": "revision-foodFull.svg",
+    "bytes": 1490,
+    "sha256": "8aa0095052daf140e6c2f995863cb657b0561c30cf307fe57b5d47a58d190169",
+    "width": "195.954",
+    "height": "95.0704",
+    "viewBox": "0 0 195.954 95.0704"
+  }
+]

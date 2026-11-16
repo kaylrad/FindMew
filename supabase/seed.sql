@@ -1,0 +1,21 @@
+insert into public.products(id,name,category,description,price,emoji,effect,slot,archived,active) values
+ ('makanan','Makanan MyMew','food','Satu porsi untuk mangkuk MyMew. Energy +20.',3,'🥣',20,null,false,true),
+ ('tuna','Tuna favorit','food','Seporsi tuna lezat. Energy +30.',3,'🐟',30,null,true,true),
+ ('kibble','Kibble premium','food','Kriuk kecil, tenaga besar. Energy +50.',3,'🥣',50,null,true,true),
+ ('shampoo','Mandi gelembung','care','Bersih, wangi, siap dipeluk. Clean +40.',25,'🫧',40,null,true,true),
+ ('brush','Sisir lembut','care','Perawatan bulu sehari-hari. Clean +20.',15,'🪮',20,null,true,true),
+ ('bandana','Bandana sage','accessory','Koleksi klasik, tetap tersimpan di tasmu.',60,'🧣',0,'neck',true,true),
+ ('bow','Pita persik','accessory','Koleksi klasik, tetap tersimpan di tasmu.',75,'🎀',0,'neck',true,true),
+ ('flower','Mahkota bunga','accessory','Koleksi klasik, tetap tersimpan di tasmu.',100,'🌼',0,'head',true,true),
+ ('topi-zaitun','Topi zaitun','accessory','Topi zaitun untuk penampilan MyMew.',50,'🧢',0,'head',false,true),
+ ('topi-merah','Topi merah','accessory','Topi merah untuk penampilan MyMew.',50,'🧢',0,'head',false,true),
+ ('topi-krem','Topi krem','accessory','Topi krem untuk penampilan MyMew.',50,'🧢',0,'head',false,true),
+ ('kacamata-hitam','Kacamata hitam','accessory','Kacamata hitam untuk penampilan MyMew.',60,'🕶️',0,'face',false,true),
+ ('kacamata-oval','Kacamata oval','accessory','Kacamata oval untuk penampilan MyMew.',60,'👓',0,'face',false,true),
+ ('bingkai-putih','Bingkai putih','accessory','Bingkai putih untuk penampilan MyMew.',60,'👓',0,'face',false,true),
+ ('topi-navy-logo','Topi Undip','accessory','Topi navy dengan logo Undip asli.',70,'🧢',0,'head',false,true),
+ ('topi-putih','Topi putih','accessory','Topi putih dari koleksi Figma.',50,'🧢',0,'head',false,true),
+ ('topi-krem-logo','Topi NY','accessory','Topi krem dengan logo NY asli.',70,'🧢',0,'head',false,true),
+ ('topi-hitam','Topi hitam','accessory','Topi hitam dari koleksi Figma.',50,'🧢',0,'head',false,true),
+ ('bingkai-hitam','Bingkai hitam','accessory','Bingkai hitam dari koleksi Figma.',60,'👓',0,'face',false,true)
+on conflict(id) do update set name=excluded.name,category=excluded.category,description=excluded.description,price=excluded.price,emoji=excluded.emoji,effect=excluded.effect,slot=excluded.slot,archived=excluded.archived,active=excluded.active;

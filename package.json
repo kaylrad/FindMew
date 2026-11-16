@@ -1,0 +1,30 @@
+{
+  "name": "findmew",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n API,WEB -c yellow,green \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build -w frontend",
+    "start": "npm run start -w backend",
+    "test": "node --test --test-concurrency=1 backend/test/*.test.js supabase/test/*.test.js",
+    "check": "npm run check -w backend && npm run check:assets && npm run format:check",
+    "icons": "node scripts/icons.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:assets": "node scripts/check-assets.js"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.7",
+    "concurrently": "^9.1.2",
+    "prettier": "3.10.1",
+    "supertest": "^7.1.1"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

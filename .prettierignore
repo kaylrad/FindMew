@@ -1,0 +1,7 @@
+node_modules/
+frontend/dist/
+frontend/public/
+backend/.data/
+.vercel/
+artifacts/
+coverage/

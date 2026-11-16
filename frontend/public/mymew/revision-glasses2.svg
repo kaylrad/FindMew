@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="130" height="27" viewBox="0 0 130 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 5">
+<mask id="stroke0_0_4" fill="white">
+<path d="M47 14C47 21.1797 36.4787 27 23.5 27C10.5213 27 0 21.1797 0 14C0 6.8203 10.5213 1 23.5 1C36.4787 1 47 6.8203 47 14Z"/>
+</mask>
+<ellipse id="Ellipse 1" cx="23.5" cy="14" rx="23.5" ry="13" stroke-width="2" stroke="black" mask="url(#stroke0_0_4)"/>
+<mask id="stroke1_0_4" fill="white">
+<path d="M130 13C130 20.1797 119.479 26 106.5 26C93.5213 26 83 20.1797 83 13C83 5.8203 93.5213 0 106.5 0C119.479 0 130 5.8203 130 13Z"/>
+</mask>
+<ellipse id="Ellipse 2" cx="106.5" cy="13" rx="23.5" ry="13" stroke-width="2" stroke="black" mask="url(#stroke1_0_4)"/>
+<path id="Vector 8" d="M46.5 13C53.1667 9.83334 69.8 5.4 83 13" stroke="black"/>
+</g>
+</svg>

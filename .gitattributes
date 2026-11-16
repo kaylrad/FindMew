@@ -1,0 +1,6 @@
+* text=auto eol=lf
+frontend/public/mymew/*.svg -text
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.woff2 binary

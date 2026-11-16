@@ -1,0 +1,444 @@
+.mew-customization-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1700;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgba(47, 47, 39, 0.42);
+  padding: 0;
+}
+.mew-customization {
+  width: 100%;
+  max-width: 460px;
+  min-height: 100dvh;
+  background: #fffbf5;
+  color: #41463d;
+  outline: none;
+  box-shadow: 0 20px 80px #24251c38;
+}
+.mew-customization-preview {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 393/492;
+  overflow: hidden;
+  background: #f5eddf;
+}
+.mew-customization-preview > .mew-scene {
+  position: absolute;
+  inset: 0;
+}
+.mew-customization-heading {
+  position: absolute;
+  inset: 54px 20px auto;
+  z-index: 5;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.mew-customization-heading h1 {
+  margin: 0;
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 31px;
+  letter-spacing: -0.45px;
+  overflow-wrap: anywhere;
+}
+.mew-customization-heading p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 17px;
+  color: #756653;
+}
+.mew-customization-back {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 14px;
+  background: #fffbf4;
+  color: #41463d;
+  cursor: pointer;
+}
+.mew-customization-back:disabled {
+  opacity: 0.45;
+  cursor: wait;
+}
+.mew-preview-name {
+  position: absolute;
+  top: 30.69%;
+  left: 50%;
+  z-index: 4;
+  max-width: 80%;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  background: #fffbf4;
+  padding: 7px 18px;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mew-preview-caption {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  z-index: 5;
+  max-width: 90%;
+  margin: 0;
+  transform: translateX(-50%);
+  border-radius: 20px;
+  background: #fffbf4;
+  padding: 5px 20px;
+  color: #536047;
+  font-size: 10px;
+  line-height: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mew-customization-options {
+  position: relative;
+  z-index: 6;
+  margin-top: 0;
+  padding: 19px 20px 24px;
+  min-height: 360px;
+  border-radius: 28px 28px 0 0;
+  background: #fffbf5;
+}
+.mew-options-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.mew-options-heading h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 30px;
+  letter-spacing: -0.4px;
+}
+.mew-options-heading > span {
+  font-size: 11px;
+  line-height: 16px;
+  color: #756653;
+  white-space: nowrap;
+}
+.mew-options-description {
+  margin: 0;
+  color: #756653;
+  font-size: 12px;
+  line-height: 16px;
+}
+.mew-name-control {
+  display: block;
+  margin-top: 16px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 800;
+  color: #59614e;
+}
+.mew-name-control input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 6px;
+  border: 1px solid #dcdacb;
+  border-radius: 12px;
+  background: #fffdf7;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #41463d;
+}
+.mew-name-control input:focus {
+  outline: 2px solid #a5b58f;
+  outline-offset: 2px;
+}
+.mew-name-control input:disabled {
+  opacity: 0.6;
+}
+.mew-name-control > span {
+  display: block;
+  margin-top: 4px;
+  color: #8d8772;
+  font-size: 10px;
+  line-height: 15px;
+  font-weight: 400;
+}
+.mew-choice-grid {
+  display: grid;
+  gap: 10px 12px;
+  margin-top: 19px;
+}
+.mew-choice-grid-cats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.mew-choice-grid-rooms {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.mew-choice-card,
+.mew-accessory-card {
+  position: relative;
+  display: block;
+  min-width: 0;
+  border: 1px solid #e8dfd0;
+  border-radius: 14px;
+  background: #f5eee2;
+  cursor: pointer;
+  color: #41463d;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+.mew-choice-card.is-selected,
+.mew-accessory-card.is-selected {
+  border-color: #788967;
+  background: #edf0e5;
+  box-shadow: inset 0 0 0 1px #788967;
+}
+.mew-choice-card:has(input:focus-visible),
+.mew-customization button:focus-visible {
+  outline: 3px solid #bd7a59;
+  outline-offset: 3px;
+}
+.mew-choice-card:has(input:disabled) {
+  opacity: 0.6;
+  cursor: wait;
+}
+.mew-choice-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.mew-choice-grid-cats .mew-choice-card {
+  height: 89px;
+  padding: 22px 8px 8px 85px;
+}
+.mew-cat-thumbnail {
+  position: absolute;
+  left: 11px;
+  top: 12px;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 58px;
+  max-height: 62px;
+}
+.mew-choice-name {
+  display: block;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 800;
+}
+.mew-choice-description {
+  display: block;
+  margin-top: 3px;
+  font-size: 9px;
+  line-height: 13px;
+  color: #756653;
+}
+.mew-choice-check {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #596c49;
+  color: white;
+}
+.mew-choice-grid-rooms .mew-choice-card {
+  height: 168px;
+  padding: 4px 4px 8px;
+  text-align: center;
+}
+.mew-room-thumbnail {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 109px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f5eee2;
+}
+.mew-room-thumbnail img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  transform: translateY(-16.12%);
+}
+.mew-choice-grid-rooms .mew-choice-name {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 18px;
+}
+.mew-choice-grid-rooms .mew-choice-description {
+  margin-top: 4px;
+  font-size: 10px;
+  line-height: 13px;
+}
+.mew-accessory-categories {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+.mew-accessory-categories button {
+  min-height: 32px;
+  border: 0;
+  border-radius: 20px;
+  background: #f2ebdd;
+  padding: 6px 22px;
+  font-size: 12px;
+  line-height: 20px;
+  color: #756653;
+  cursor: pointer;
+}
+.mew-accessory-categories button[aria-pressed='true'] {
+  background: #e2e8d8;
+  color: #45523d;
+  font-weight: 800;
+}
+.mew-accessory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+  min-height: 174px;
+  align-content: start;
+}
+.mew-accessory-card {
+  height: 82px;
+  padding: 0;
+}
+.mew-accessory-card:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.mew-accessory-art {
+  position: absolute;
+  inset: 8px 8px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 43px;
+}
+.mew-accessory-art > .mew-accessory-graphic {
+  flex: none;
+}
+.mew-accessory-title {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 6px;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+}
+.mew-accessory-card.is-selected .mew-accessory-title {
+  font-weight: 800;
+}
+.mew-accessory-card.is-locked .mew-accessory-title {
+  bottom: 16px;
+}
+.mew-accessory-lock {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: #81745f;
+}
+.mew-accessory-price {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  color: #8a6e4f;
+  font-size: 9px;
+  line-height: 12px;
+  text-align: center;
+}
+.mew-customization-save {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 44px;
+  margin-top: 20px;
+  border: 0;
+  border-radius: 16px;
+  background: #dc9673;
+  color: #382c24;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 20px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+.mew-customization-rooms .mew-customization-save {
+  margin-top: 40px;
+}
+.mew-customization-accessories .mew-customization-save {
+  margin-top: 15px;
+}
+.mew-customization-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.mew-customization-offline {
+  margin: 12px 0 0;
+  font-size: 11px;
+  line-height: 17px;
+  color: #956d4d;
+}
+@media (min-width: 640px) {
+  .mew-customization-overlay {
+    padding: 24px;
+  }
+  .mew-customization {
+    min-height: 0;
+    border-radius: 26px;
+    overflow: hidden;
+  }
+}
+@media (max-width: 360px) {
+  .mew-customization-options {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  .mew-choice-grid-cats .mew-choice-card {
+    padding-left: 72px;
+  }
+  .mew-cat-thumbnail {
+    max-width: 49px;
+  }
+  .mew-accessory-categories button {
+    padding-inline: 18px;
+  }
+  .mew-options-heading > span {
+    font-size: 10px;
+  }
+  .mew-customization-heading {
+    left: 15px;
+    right: 15px;
+    gap: 12px;
+  }
+  .mew-customization-heading h1 {
+    font-size: 21px;
+  }
+}

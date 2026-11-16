@@ -1,0 +1,229 @@
+@import 'tailwindcss';
+@theme {
+  --color-ink: #42493a;
+  --color-muted: #9b9e8e;
+  --color-line: #e9e8dc;
+  --font-sans: 'Nunito Variable', 'Nunito', system-ui, sans-serif;
+}
+:root {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #faf9f4;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+}
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+button,
+a,
+label {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #b8c4a4;
+  outline-offset: 4px;
+}
+::selection {
+  background: #edddbf;
+}
+@layer components {
+  .card {
+    @apply rounded-[20px] border border-[#eae9df] bg-[#fffef9] shadow-[0_3px_12px_#51523603];
+  }
+  .page-title {
+    @apply text-[29px] leading-tight font-black tracking-tight md:text-[36px];
+  }
+  .eyebrow {
+    @apply text-[9px] font-extrabold tracking-[.18em] text-[#aaa88f] md:text-[10px];
+  }
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-extrabold transition duration-200 disabled:opacity-45;
+  }
+  .btn-primary {
+    @apply border border-[#cc9973] bg-[#dba882] text-white hover:bg-[#ce9a73] shadow-[0_3px_0_#ba896417];
+  }
+  .btn-secondary {
+    @apply border border-[#d8ddc8] bg-[#e8eddd] text-[#85916c] hover:bg-[#dfe7d1];
+  }
+  .btn-danger {
+    @apply border border-[#cb8c7b] bg-[#cb8c7b] text-white hover:bg-[#b97767];
+  }
+  .btn-ghost {
+    @apply text-[#a6a58f] hover:bg-[#f6f2e8];
+  }
+  .icon-button {
+    @apply grid h-9 w-9 shrink-0 place-items-center rounded-full text-[#a6ad95] transition hover:bg-[#eeeee3];
+  }
+  .label {
+    @apply block text-xs font-extrabold text-[#727b65];
+  }
+  .input {
+    @apply block min-h-11 w-full rounded-xl border border-[#e0e2d5] bg-[#fffef9] px-3.5 py-3 text-sm font-normal text-ink outline-none placeholder:text-[#bbbdad] focus:border-[#a1b18e] focus:ring-2 focus:ring-[#dce5d1]/60;
+  }
+  .coin-icon {
+    @apply grid h-5 w-5 place-items-center rounded-full border border-[#d5b977] bg-[#f5e6b6] text-[#bb984d];
+  }
+  .photo-card {
+    @apply overflow-hidden rounded-2xl border border-[#e9e7dc] bg-[#fffef9] p-1.5 text-left transition hover:-translate-y-1 hover:shadow-md;
+  }
+  .modal-overlay {
+    @apply fixed inset-0 z-[1500] flex items-end justify-center overflow-y-auto bg-[#30382b]/30 p-3 backdrop-blur-[3px] sm:items-center sm:p-6;
+  }
+  .modal-panel {
+    @apply relative max-h-[91dvh] w-full overflow-y-auto rounded-[25px] border border-white bg-[#fffdf7] p-6 shadow-2xl outline-none;
+  }
+  .toast {
+    @apply fixed top-[88px] left-1/2 z-[2000] flex w-[calc(100%-32px)] max-w-md -translate-x-1/2 items-center gap-3 rounded-2xl border bg-[#fffef8] px-5 py-4 text-xs font-semibold leading-6 shadow-xl;
+  }
+}
+.pet-room {
+  aspect-ratio: 1.8;
+}
+.bottom-nav {
+  position: fixed;
+  z-index: 800;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, calc(100% - 32px));
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 7px 14px 6px;
+  border: 1px solid #e9e6d8;
+  border-radius: 24px;
+  background: #fffef9f5;
+  box-shadow: 0 8px 35px #686a4b10;
+  backdrop-filter: blur(16px);
+}
+.nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-height: 59px;
+  color: #b2b7a3;
+  font-size: 9px;
+  font-weight: 700;
+}
+.nav-item.nav-active {
+  color: #87916f;
+}
+.nav-item i {
+  position: absolute;
+  bottom: -1px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #9ca984;
+}
+.camera-disc {
+  display: grid;
+  place-items: center;
+  margin-top: -24px;
+  width: 53px;
+  height: 53px;
+  border-radius: 18px;
+  background: #dba57c;
+  color: #fffcf3;
+  border: 4px solid #fffef9;
+  box-shadow: 0 4px 8px #d49c6f24;
+}
+.nav-camera {
+  color: #bc9775;
+}
+.leaflet-control-attribution {
+  font-size: 9px !important;
+}
+.cat-bounce {
+  animation: cat-bob 0.65s ease-in-out 3;
+}
+.float-heart {
+  animation: float-up 1.3s ease-in-out infinite;
+}
+@keyframes cat-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -7px;
+    rotate: 1deg;
+  }
+}
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    translate: 0 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    translate: 0 -65px;
+  }
+}
+@media (max-width: 767px) {
+  .pet-room {
+    aspect-ratio: 1.18;
+  }
+  .pet-room > .room-background {
+    width: 150%;
+    left: -25%;
+    max-width: none;
+  }
+  .bottom-nav {
+    bottom: 0;
+    width: 100%;
+    border-radius: 22px 22px 0 0;
+    border-bottom: 0;
+    padding: 8px 14px calc(8px + env(safe-area-inset-bottom));
+    box-shadow: 0 -5px 25px #686a4b08;
+  }
+  .nav-item {
+    min-height: 57px;
+  }
+  .camera-disc {
+    width: 54px;
+    height: 54px;
+  }
+}
+@media (max-width: 359px) {
+  header button[aria-label='Notifikasi'] {
+    display: none;
+  }
+  main .rounded-full > button {
+    padding-inline: 8px;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
