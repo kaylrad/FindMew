@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { X, LoaderCircle, Coins, AlertCircle, Check, ImageOff } from 'lucide-react';
 import { useApp } from '../context';
-import { request, API } from '../lib/api';
+import { request } from '../lib/api';
 import { readPhoto, writePhoto, cacheGeneration } from '../lib/cache';
+
 export function Button({ children, variant = 'primary', className = '', busy = false, ...props }) {
   return (
     <button
@@ -15,6 +16,7 @@ export function Button({ children, variant = 'primary', className = '', busy = f
     </button>
   );
 }
+
 export function Coin({ value, className = '' }) {
   return (
     <span className={`inline-flex items-center gap-1.5 font-extrabold ${className}`}>
@@ -26,6 +28,7 @@ export function Coin({ value, className = '' }) {
     </span>
   );
 }
+
 export function Modal({ title, children, onClose, wide = false }) {
   const panel = useRef(null);
   useEffect(() => {
@@ -40,8 +43,8 @@ export function Modal({ title, children, onClose, wide = false }) {
           'button:not(:disabled),input,textarea,select,a[href],[tabindex="0"]'
         );
         if (!focusable?.length) return;
-        const first = focusable[0],
-          last = focusable[focusable.length - 1];
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
@@ -84,12 +87,13 @@ export function Modal({ title, children, onClose, wide = false }) {
     </div>
   );
 }
+
 export function Photo({ item, publicPhoto = false, className = '', ...props }) {
-  const { session, online } = useApp(),
-    [src, setSrc] = useState(null);
+  const { session, online } = useApp();
+  const [src, setSrc] = useState(null);
   useEffect(() => {
-    let cancelled = false,
-      url;
+    let cancelled = false;
+    let url;
     const generation = cacheGeneration();
     const controller = new AbortController();
     (async () => {
@@ -139,6 +143,7 @@ export function Photo({ item, publicPhoto = false, className = '', ...props }) {
     </div>
   );
 }
+
 export function Toast() {
   const { toast } = useApp();
   return toast ? (
@@ -157,6 +162,7 @@ export function Toast() {
 }
 export const dateLabel = (d) =>
   new Date(d).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+
 export function Empty({ icon: Icon, title, children }) {
   return (
     <div className="py-16 text-center">

@@ -13,11 +13,12 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context';
 import { Button, Modal } from '../components/ui';
-export default function Profile({ openInstall, navigate }) {
-  const { data, online, busy, mutate, logout, config } = useApp(),
-    [editing, setEditing] = useState(false),
-    [confirmLogout, setConfirmLogout] = useState(false),
-    [form, setForm] = useState(data.profile);
+
+export default function Profile({ openInstall }) {
+  const { data, online, busy, mutate, logout, config } = useApp();
+  const [editing, setEditing] = useState(false);
+  const [confirmLogout, setConfirmLogout] = useState(false);
+  const [form, setForm] = useState(data.profile);
   return (
     <>
       <p className="eyebrow">DI BALIK SETIAP CERITA MEW</p>

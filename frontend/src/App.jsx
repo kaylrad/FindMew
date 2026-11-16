@@ -5,23 +5,19 @@ import {
   Images,
   MapPin,
   UserRound,
-  Bell,
-  Plus,
   WifiOff,
-  Download,
   Heart,
   LoaderCircle,
   RefreshCw,
 } from 'lucide-react';
 import { useApp } from './context';
-import Brand from './components/layout/Brand';
+import AppHeader from './components/layout/AppHeader';
 import AuthScreen from './components/auth/AuthScreen';
-import MewHomeHeader from './components/layout/MewHomeHeader';
-import { Button, Coin, Modal, Toast } from './components/ui';
+import { Button, Modal, Toast } from './components/ui';
 import { useInstall, InstallModal, UpdateNotice } from './components/PWA';
 import Home from './pages/Home';
-import MapLoadBoundary from './components/MapLoadBoundary';
 import PageLoadBoundary from './components/PageLoadBoundary';
+
 const Collection = lazy(() => import('./pages/Collection'));
 const CollectionDetail = lazy(() =>
   import('./pages/Collection').then((module) => ({ default: module.CollectionDetail }))
@@ -30,7 +26,7 @@ const Capture = lazy(() => import('./pages/Capture'));
 const Store = lazy(() => import('./pages/Store'));
 const Profile = lazy(() => import('./pages/Profile'));
 const MapPage = lazy(() => import('./pages/MapPage'));
-const pages = {
+const pageByHash = {
   mymew: 'home',
   koleksi: 'collection',
   tambah: 'add',
@@ -38,28 +34,53 @@ const pages = {
   profil: 'profile',
   store: 'store',
 };
-const hashes = Object.fromEntries(Object.entries(pages).map(([k, v]) => [v, k]));
+const hashByPage = Object.fromEntries(Object.entries(pageByHash).map(([k, v]) => [v, k]));
+const navigationItems = [
+  ['home', 'MyMew', PawPrint],
+  ['collection', 'Koleksi', Images],
+  ['add', 'Tambah', Camera],
+  ['map', 'Map', MapPin],
+  ['profile', 'Profil', UserRound],
+];
+
+function PageContent({ page, navigate, openCollection, mapFocusId, storeProductId, openInstall }) {
+  switch (page) {
+    case 'home':
+      return <Home navigate={navigate} />;
+    case 'collection':
+      return <Collection navigate={navigate} openCollection={openCollection} />;
+    case 'add':
+      return <Capture navigate={navigate} />;
+    case 'map':
+      return <MapPage focusId={mapFocusId} />;
+    case 'store':
+      return <Store navigate={navigate} initialProductId={storeProductId} />;
+    default:
+      return <Profile openInstall={openInstall} />;
+  }
+}
+
 export default function App() {
-  const { config, session, data, loading, error, online, cached, savedAt, refresh } = useApp(),
-    [page, setPage] = useState(pages[location.hash.slice(1)] || 'home'),
-    [detail, setDetail] = useState(null),
-    [install, setInstall] = useState(false),
-    [notifications, setNotifications] = useState(false),
-    [storeProductId, setStoreProductId] = useState(null),
-    [mapFocusId, setMapFocusId] = useState(null);
+  const { config, session, data, loading, error, online, cached, savedAt, refresh } = useApp();
+  const [page, setPage] = useState(pageByHash[location.hash.slice(1)] || 'home');
+  const [detail, setDetail] = useState(null);
+  const [install, setInstall] = useState(false);
+  const [notifications, setNotifications] = useState(false);
+  const [storeProductId, setStoreProductId] = useState(null);
+  const [mapFocusId, setMapFocusId] = useState(null);
   const installation = useInstall();
   function navigate(p, options = {}) {
     setMapFocusId(p === 'map' ? options.collectionId || null : null);
     setStoreProductId(p === 'store' ? options.productId || null : null);
     setDetail(null);
-    location.hash = hashes[p] || 'mymew';
+    location.hash = hashByPage[p] || 'mymew';
     setPage(p);
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
   useEffect(() => {
     const fn = () => {
       setDetail(null);
-      setPage(pages[location.hash.slice(1)] || 'home');
+      setPage(pageByHash[location.hash.slice(1)] || 'home');
     };
     window.addEventListener('hashchange', fn);
     return () => window.removeEventListener('hashchange', fn);
@@ -70,68 +91,16 @@ export default function App() {
     setStoreProductId(null);
     setMapFocusId(null);
   }, [session?.user.id]);
-  const nav = [
-    ['home', 'MyMew', PawPrint],
-    ['collection', 'Koleksi', Images],
-    ['add', 'Tambah', Camera],
-    ['map', 'Map', MapPin],
-    ['profile', 'Profil', UserRound],
-  ];
   return (
     <div className={data && page === 'home' ? 'mew-home-shell' : 'min-h-dvh'}>
-      <header className="sticky top-0 z-[700] border-b border-[#eeece2] bg-[#fbfaf5]/95 backdrop-blur-lg">
-        {data && page === 'home' ? (
-          <MewHomeHeader
-            coins={data.profile.coins}
-            navigate={navigate}
-            onNotifications={() => setNotifications(true)}
-          />
-        ) : (
-          <>
-            <div className="mx-auto flex h-[76px] max-w-[1120px] items-center justify-between gap-3 px-5 md:px-9">
-              <Brand onClick={() => navigate('home')} />
-              <div className="flex items-center gap-2.5 md:gap-4">
-                {config?.demo && (
-                  <span className="hidden rounded-full border border-[#e9dfc5] px-2.5 py-1 text-[9px] font-bold tracking-wide text-[#b19a67] sm:inline-block">
-                    DEMO LOKAL
-                  </span>
-                )}
-                {data && (
-                  <>
-                    <button
-                      onClick={() => navigate('store')}
-                      className="flex items-center gap-2 rounded-full border border-[#eee5ce] bg-[#f8f2e2] py-2 pl-3 pr-1.5"
-                      aria-label={`Saldo ${data.profile.coins} koin, buka Store`}
-                    >
-                      <Coin value={data.profile.coins} className="text-xs" />
-                      <span className="ml-1 grid h-5 w-5 place-items-center rounded-full bg-[#eee3c8] text-[#baa16a]">
-                        <Plus size={12} />
-                      </span>
-                    </button>
-                    <button
-                      aria-label="Notifikasi"
-                      className="icon-button relative"
-                      onClick={() => setNotifications(true)}
-                    >
-                      <Bell size={19} strokeWidth={1.5} />
-                      <span className="absolute right-2 top-1.5 h-1 w-1 rounded-full bg-[#dda987]" />
-                    </button>
-                  </>
-                )}
-                {!data && (
-                  <button
-                    aria-label="Panduan instalasi"
-                    className="icon-button"
-                    onClick={() => setInstall(true)}
-                  >
-                    <Download size={18} />
-                  </button>
-                )}
-              </div>
-            </div>
-          </>
-        )}
-      </header>
+      <AppHeader
+        config={config}
+        data={data}
+        page={page}
+        navigate={navigate}
+        onNotifications={() => setNotifications(true)}
+        onInstall={() => setInstall(true)}
+      />
       {config?.demo && (
         <div className="border-b border-[#eeece2] bg-[#f6f1e3] py-1.5 text-center text-[9px] tracking-wide text-[#a8966d] sm:hidden">
           MODE DEMO LOKAL · belum terhubung Supabase
@@ -195,7 +164,7 @@ export default function App() {
             </div>
           )}
           {data ? (
-            <PageLoadBoundary key={page}>
+            <PageLoadBoundary key={page} page={page}>
               <Suspense
                 fallback={
                   <div className="grid h-96 place-items-center text-muted">
@@ -203,21 +172,14 @@ export default function App() {
                   </div>
                 }
               >
-                {page === 'home' ? (
-                  <Home navigate={navigate} openCollection={setDetail} />
-                ) : page === 'collection' ? (
-                  <Collection navigate={navigate} openCollection={setDetail} />
-                ) : page === 'add' ? (
-                  <Capture navigate={navigate} />
-                ) : page === 'map' ? (
-                  <MapLoadBoundary>
-                    <MapPage focusId={mapFocusId} />
-                  </MapLoadBoundary>
-                ) : page === 'store' ? (
-                  <Store navigate={navigate} initialProductId={storeProductId} />
-                ) : (
-                  <Profile navigate={navigate} openInstall={() => setInstall(true)} />
-                )}
+                <PageContent
+                  page={page}
+                  navigate={navigate}
+                  openCollection={setDetail}
+                  mapFocusId={mapFocusId}
+                  storeProductId={storeProductId}
+                  openInstall={() => setInstall(true)}
+                />
               </Suspense>
             </PageLoadBoundary>
           ) : (
@@ -232,7 +194,7 @@ export default function App() {
       )}
       {session && (
         <nav aria-label="Navigasi utama" className="bottom-nav">
-          {nav.map(([id, label, Icon]) => (
+          {navigationItems.map(([id, label, Icon]) => (
             <button
               key={id}
               aria-current={page === id ? 'page' : undefined}

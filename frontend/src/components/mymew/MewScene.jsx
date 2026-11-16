@@ -1,22 +1,17 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import {
-  getMewCat,
-  getMewRoom,
-  mewAccessories,
-  mewHomeLayers,
-  mewWarmLayers,
-} from '../lib/mymew-catalog';
-import { mewPoseFrames, mewPoseSheets, poseLabels } from '../lib/cat-poses';
+import { getMewCat, getMewRoom, mewAccessories } from '../../lib/mymew-catalog';
+import { mewHomeLayers, mewWarmLayers } from '../../lib/mymew-room-layers';
+import { mewPoseFrames, mewPoseSheets, poseLabels } from '../../lib/cat-poses';
 import MewAccessoryArt from './MewAccessoryArt';
 
-const catWidth = 190.65255737304688,
-  catHeight = 204.2150115966797;
+const catWidth = 190.65255737304688;
+const catHeight = 204.2150115966797;
 
-export function MewRoomFill({ pet = {}, scale = 1, top = 0 }) {
-  const room = getMewRoom(pet.room_id),
-    warm = room.id === 'hangat';
-  const backgroundScale = 453 / 393,
-    backgroundTop = (857 - 852 * backgroundScale) / 2;
+function MewRoomFill({ pet = {}, scale = 1, top = 0 }) {
+  const room = getMewRoom(pet.room_id);
+  const warm = room.id === 'hangat';
+  const backgroundScale = 453 / 393;
+  const backgroundTop = (857 - 852 * backgroundScale) / 2;
   const floorTop = top + (warm ? 435.5274 : backgroundTop + 433 * backgroundScale) * scale;
   const skirtingTop = top + (warm ? 435.2703 : backgroundTop + 432.721 * backgroundScale) * scale;
   const wall = warm ? '#F6EBDD' : room.id === 'senja' ? '#575965' : '#496046';
@@ -102,7 +97,7 @@ function OriginalLayers({ layers }) {
   ));
 }
 
-export function MewCat({
+function MewCat({
   catId = 'oyen',
   equipped = [],
   pose = 'idle',
@@ -110,10 +105,10 @@ export function MewCat({
   style = {},
   label,
 }) {
-  const cat = getMewCat(catId),
-    frame = mewPoseFrames[pose] || mewPoseFrames.idle;
-  const width = Number(style.width) || catWidth,
-    height = Number(style.height) || catHeight;
+  const cat = getMewCat(catId);
+  const frame = mewPoseFrames[pose] || mewPoseFrames.idle;
+  const width = Number(style.width) || catWidth;
+  const height = Number(style.height) || catHeight;
   const scale = Math.min(width / frame.width, height / frame.height);
   const worn = mewAccessories.filter((item) =>
     equipped.some((entry) => (entry.product_id || entry.id) === item.id)
@@ -162,8 +157,8 @@ export function MewCat({
           />
         </div>
         {worn.map((item) => {
-          const hat = item.slot === 'head',
-            itemWidth = (frame.headWidth * (hat ? 106 : 130)) / 143.307312;
+          const hat = item.slot === 'head';
+          const itemWidth = (frame.headWidth * (hat ? 106 : 130)) / 143.307312;
           const ratio = item.artWidth / item.artHeight;
           const centerX = frame.eyesX - frame.headWidth * (hat ? 0.045 : 0.02);
           const centerY = hat
@@ -193,7 +188,7 @@ export function MewCat({
   );
 }
 
-export function MewScene({
+function MewScene({
   pet = {},
   equipped = [],
   variant = 'home',
@@ -202,11 +197,11 @@ export function MewScene({
   children,
   style = {},
 }) {
-  const preview = variant === 'preview',
-    width = preview ? 393 : 453,
-    height = preview ? 492 : 857;
-  const container = useRef(null),
-    [scale, setScale] = useState(1);
+  const preview = variant === 'preview';
+  const width = preview ? 393 : 453;
+  const height = preview ? 492 : 857;
+  const container = useRef(null);
+  const [scale, setScale] = useState(1);
   const room = getMewRoom(pet.room_id);
   useLayoutEffect(() => {
     const node = container.current;
@@ -224,8 +219,8 @@ export function MewScene({
   const catPosition = preview
     ? { left: 114, top: 258, width: catWidth, height: catHeight }
     : { left: 128, top: 335, width: 235, height: 240 };
-  const backgroundScale = preview ? 1 : width / 393,
-    backgroundTop = preview ? -80 : (height - 852 * backgroundScale) / 2;
+  const backgroundScale = preview ? 1 : width / 393;
+  const backgroundTop = preview ? -80 : (height - 852 * backgroundScale) / 2;
   const bowlBottom = room.id === 'hangat' ? 740.27 : backgroundTop + 736 * backgroundScale;
   return (
     <div
@@ -328,6 +323,7 @@ const otherParts = {
   books: { x: 0, y: 386, width: 60, height: 77 },
   rug: { x: 23, y: 510, width: 367, height: 100 },
 };
+
 function RoomDecoration({ room, part, scale, left, top }) {
   const region = (room.id === 'hangat' ? warmParts : otherParts)[part];
   return (
@@ -389,8 +385,8 @@ function RoomDecoration({ room, part, scale, left, top }) {
 }
 
 export function MewHomeRoom({ pet = {}, equipped = [], pose = 'idle', children }) {
-  const area = useRef(null),
-    [size, setSize] = useState({ width: 390, height: 620 });
+  const area = useRef(null);
+  const [size, setSize] = useState({ width: 390, height: 620 });
   const room = getMewRoom(pet.room_id);
   useLayoutEffect(() => {
     const node = area.current;
@@ -412,8 +408,8 @@ export function MewHomeRoom({ pet = {}, equipped = [], pose = 'idle', children }
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
   }, []);
-  const { width, height } = size,
-    compact = height < 320;
+  const { width, height } = size;
+  const compact = height < 320;
   const decorScale = Math.max(0.38, Math.min(1.45, width / 560, height / 520));
   const floorY = compact
     ? height * 0.55
@@ -440,8 +436,8 @@ export function MewHomeRoom({ pet = {}, equipped = [], pose = 'idle', children }
     room.id === 'hangat' ? 435.5274 : (857 - 852 * (453 / 393)) / 2 + 433 * (453 / 393);
   const parts = room.id === 'hangat' ? warmParts : otherParts;
   const rightMargin = compact ? width * 0.22 : Math.max(66, width * 0.12);
-  const rugWidth = Math.min(width * 0.85, catSize * 1.5),
-    rugScale = rugWidth / parts.rug.width;
+  const rugWidth = Math.min(width * 0.85, catSize * 1.5);
+  const rugScale = rugWidth / parts.rug.width;
   return (
     <>
       <MewRoomFill pet={pet} scale={decorScale} top={floorY - originalFloor * decorScale} />

@@ -1,4 +1,4 @@
-export const API = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+const API = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 let tokenProvider = async () => null;
 export function setTokenProvider(provider) {
   tokenProvider = provider;

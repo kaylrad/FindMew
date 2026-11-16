@@ -15,7 +15,8 @@ import {
 import { useApp } from '../context';
 import { Button } from '../components/ui';
 import CollectionFields from '../components/CollectionFields';
-export async function compressImage(file) {
+
+async function compressImage(file) {
   const url = URL.createObjectURL(file);
   try {
     const img = new Image();
@@ -40,24 +41,25 @@ export async function compressImage(file) {
     URL.revokeObjectURL(url);
   }
 }
+
 export default function Capture({ navigate }) {
-  const { config, online, busy, mutate, notify } = useApp(),
-    [photo, setPhoto] = useState(null),
-    [preview, setPreview] = useState(null),
-    [streaming, setStreaming] = useState(false),
-    [starting, setStarting] = useState(false),
-    [cameraError, setCameraError] = useState(''),
-    [form, setForm] = useState({ name: '', notes: '', visibility: 'private', fed: '' }),
-    [location, setLocation] = useState(null),
-    [locating, setLocating] = useState(false),
-    [success, setSuccess] = useState(null),
-    [processing, setProcessing] = useState(false);
-  const video = useRef(null),
-    stream = useRef(null),
-    mounted = useRef(true),
-    attempt = useRef(crypto.randomUUID()),
-    submitLock = useRef(false),
-    fileRef = useRef(null);
+  const { config, online, busy, mutate, notify } = useApp();
+  const [photo, setPhoto] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [streaming, setStreaming] = useState(false);
+  const [starting, setStarting] = useState(false);
+  const [cameraError, setCameraError] = useState('');
+  const [form, setForm] = useState({ name: '', notes: '', visibility: 'private', fed: '' });
+  const [location, setLocation] = useState(null);
+  const [locating, setLocating] = useState(false);
+  const [success, setSuccess] = useState(null);
+  const [processing, setProcessing] = useState(false);
+  const video = useRef(null);
+  const stream = useRef(null);
+  const mounted = useRef(true);
+  const attempt = useRef(crypto.randomUUID());
+  const submitLock = useRef(false);
+  const fileRef = useRef(null);
   function stop() {
     stream.current?.getTracks().forEach((t) => t.stop());
     stream.current = null;

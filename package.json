@@ -16,7 +16,8 @@
     "icons": "node scripts/icons.js",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check:assets": "node scripts/check-assets.js"
+    "check:assets": "node scripts/check-assets.js",
+    "check:pwa": "node scripts/verify-pwa.js"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.3.7",

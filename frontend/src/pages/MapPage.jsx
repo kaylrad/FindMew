@@ -11,7 +11,7 @@ import {
 import { useApp } from '../context';
 import { request } from '../lib/api';
 import { Photo, Button, Modal, dateLabel } from '../components/ui';
-import ExplorerMap from '../components/ExplorerMap';
+import ExplorerMap from '../components/map/ExplorerMap';
 
 const initialMapState = { state: 'loading', message: '', loaded: false };
 const externalLocation = (item) =>
@@ -26,17 +26,17 @@ const externalLocation = (item) =>
 
 export default function MapPage({ focusId = null }) {
   const { online, notify } = useApp();
-  const [items, setItems] = useState([]),
-    [selected, setSelected] = useState(null),
-    [position, setPosition] = useState(null);
-  const [loading, setLoading] = useState(true),
-    [error, setError] = useState(''),
-    [total, setTotal] = useState(0),
-    [locating, setLocating] = useState(false);
-  const [mapState, setMapState] = useState(initialMapState),
-    [mapAttempt, setMapAttempt] = useState(0);
-  const detailRequest = useRef(null),
-    focused = useRef(null);
+  const [items, setItems] = useState([]);
+  const [selected, setSelected] = useState(null);
+  const [position, setPosition] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [total, setTotal] = useState(0);
+  const [locating, setLocating] = useState(false);
+  const [mapState, setMapState] = useState(initialMapState);
+  const [mapAttempt, setMapAttempt] = useState(0);
+  const detailRequest = useRef(null);
+  const focused = useRef(null);
   const onMapStatus = useCallback(
     (status) =>
       setMapState((current) =>

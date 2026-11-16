@@ -5,33 +5,25 @@ export const mewCats = [
     id: 'oyen',
     name: 'Oyen',
     description: 'Jingga ceria',
-    subtitle: 'Jingga ceria',
     src: local('cats-IlustrasiOyen.svg'),
-    sceneSrc: local('cat-oyen.svg'),
   },
   {
     id: 'mujair',
     name: 'Mujair',
     description: 'Abu-abu manis',
-    subtitle: 'Abu-abu manis',
     src: local('cats-IlustrasiMujair.svg'),
-    sceneSrc: local('cat-mujair.svg'),
   },
   {
     id: 'hitam',
     name: 'Hitam',
     description: 'Hitam menawan',
-    subtitle: 'Hitam menawan',
     src: local('cats-IlustrasiHitam.svg'),
-    sceneSrc: local('cat-hitam.svg'),
   },
   {
     id: 'putih',
     name: 'Putih',
     description: 'Putih lembut',
-    subtitle: 'Putih lembut',
     src: local('cats-IlustrasiPutih.svg'),
-    sceneSrc: local('cat-putih.svg'),
   },
 ];
 
@@ -40,7 +32,6 @@ export const mewRooms = [
     id: 'hangat',
     name: 'Hangat',
     description: 'Krem alami',
-    subtitle: 'Krem alami',
     src: local('rooms-IlustrasiRuanganHangat.svg'),
     sceneSrc: null,
   },
@@ -48,7 +39,6 @@ export const mewRooms = [
     id: 'senja',
     name: 'Senja',
     description: 'Abu-abu teduh',
-    subtitle: 'Abu-abu teduh',
     src: local('rooms-IlustrasiRuanganSenja.svg'),
     sceneSrc: local('room-senja.svg'),
   },
@@ -56,7 +46,6 @@ export const mewRooms = [
     id: 'rimbun',
     name: 'Rimbun',
     description: 'Hijau tenang',
-    subtitle: 'Hijau tenang',
     src: local('rooms-IlustrasiRuanganRimbun.svg'),
     sceneSrc: local('room-rimbun.svg'),
   },
@@ -212,11 +201,5 @@ export const mewUiAssets = {
   roomCircle: local('home-Ellipse3.svg'),
 };
 
-export const cats = mewCats,
-  rooms = mewRooms,
-  accessories = mewAccessories,
-  assets = mewUiAssets;
 export const getMewCat = (id) => mewCats.find((cat) => cat.id === id) || mewCats[0];
 export const getMewRoom = (id) => mewRooms.find((room) => room.id === id) || mewRooms[0];
-
-export { mewHomeLayers, mewWarmLayers } from './mymew-room-layers';

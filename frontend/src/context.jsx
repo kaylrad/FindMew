@@ -7,29 +7,31 @@ import {
   cacheGeneration,
   deletePhoto,
 } from './lib/cache';
+
 const Context = createContext();
 export const useApp = () => useContext(Context);
+
 export function AppProvider({ children }) {
-  const [config, setConfig] = useState(null),
-    [session, setSession] = useState(null),
-    [data, setData] = useState(null),
-    [collections, setCollections] = useState([]),
-    [total, setTotal] = useState(0),
-    [loading, setLoading] = useState(true),
-    [error, setError] = useState(''),
-    [online, setOnline] = useState(navigator.onLine),
-    [savedAt, setSavedAt] = useState(null),
-    [cached, setCached] = useState(false),
-    [toast, setToast] = useState(null),
-    [busy, setBusy] = useState(false);
-  const auth = useRef(null),
-    sessionRef = useRef(null),
-    lock = useRef(false),
-    keys = useRef({}),
-    toastTimer = useRef(null),
-    loadId = useRef(0),
-    signedOut = useRef(false),
-    loadedUid = useRef(null);
+  const [config, setConfig] = useState(null);
+  const [session, setSession] = useState(null);
+  const [data, setData] = useState(null);
+  const [collections, setCollections] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [online, setOnline] = useState(navigator.onLine);
+  const [savedAt, setSavedAt] = useState(null);
+  const [cached, setCached] = useState(false);
+  const [toast, setToast] = useState(null);
+  const [busy, setBusy] = useState(false);
+  const auth = useRef(null);
+  const sessionRef = useRef(null);
+  const lock = useRef(false);
+  const keys = useRef({});
+  const toastTimer = useRef(null);
+  const loadId = useRef(0);
+  const signedOut = useRef(false);
+  const loadedUid = useRef(null);
   const notify = useCallback((message, type = 'success') => {
     setToast({ message, type });
     clearTimeout(toastTimer.current);
@@ -40,8 +42,8 @@ export function AppProvider({ children }) {
     setSession(s);
   }, []);
   useEffect(() => {
-    const change = () => setOnline(navigator.onLine),
-      unreachable = () => setOnline(false);
+    const change = () => setOnline(navigator.onLine);
+    const unreachable = () => setOnline(false);
     window.addEventListener('online', change);
     window.addEventListener('offline', change);
     window.addEventListener('findmew:unreachable', unreachable);
@@ -54,8 +56,8 @@ export function AppProvider({ children }) {
   }, []);
   useEffect(() => {
     if (online) return;
-    let alive = true,
-      pending = false;
+    let alive = true;
+    let pending = false;
     const probe = async () => {
       if (!navigator.onLine || pending) return;
       pending = true;
@@ -74,8 +76,8 @@ export function AppProvider({ children }) {
     };
   }, [online]);
   useEffect(() => {
-    let alive = true,
-      subscription;
+    let alive = true;
+    let subscription;
     (async () => {
       try {
         let c;
@@ -133,9 +135,9 @@ export function AppProvider({ children }) {
     async ({ append = false } = {}) => {
       const current = sessionRef.current;
       if (!current) return;
-      const uid = current.user.id,
-        generation = cacheGeneration(),
-        ticket = ++loadId.current;
+      const uid = current.user.id;
+      const generation = cacheGeneration();
+      const ticket = ++loadId.current;
       setError('');
       try {
         if (!navigator.onLine) {

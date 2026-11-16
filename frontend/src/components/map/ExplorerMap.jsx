@@ -6,7 +6,7 @@ import './explorer-map.css';
 
 // Vite emits the worker on our origin; no blob worker or external script is required.
 setWorkerUrl(workerUrl);
-export const MAP_STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty';
+const MAP_STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty';
 const initialView = { center: [106.819, -6.2], zoom: 13 };
 
 function publicMarker(item, onSelect) {
@@ -39,27 +39,27 @@ export default function ExplorerMap({
   onSelect,
   onStatus,
 }) {
-  const container = useRef(null),
-    mapRef = useRef(null),
-    markers = useRef([]),
-    locationMarker = useRef(null),
-    view = useRef(initialView);
-  const statusRef = useRef(onStatus),
-    selectRef = useRef(onSelect);
-  const framed = useRef(false),
-    focused = useRef(null);
+  const container = useRef(null);
+  const mapRef = useRef(null);
+  const markers = useRef([]);
+  const locationMarker = useRef(null);
+  const view = useRef(initialView);
+  const statusRef = useRef(onStatus);
+  const selectRef = useRef(onSelect);
+  const framed = useRef(false);
+  const focused = useRef(null);
   statusRef.current = onStatus;
   selectRef.current = onSelect;
 
   useEffect(() => {
     const node = container.current;
     if (!node) return;
-    let map,
-      resizeObserver,
-      disposed = false,
-      loaded = false,
-      hadResourceError = false,
-      gpuUnavailable = false;
+    let map;
+    let resizeObserver;
+    let disposed = false;
+    let loaded = false;
+    let hadResourceError = false;
+    let gpuUnavailable = false;
     framed.current = false;
     focused.current = null;
     statusRef.current({ state: 'loading', message: '' });
@@ -87,8 +87,8 @@ export default function ExplorerMap({
       map.touchZoomRotate.disableRotation();
       map.addControl(new NavigationControl({ showCompass: false }), 'top-left');
       map.getCanvas().setAttribute('aria-label', 'Peta pertemuan kucing');
-      const zoomIn = node.querySelector('.maplibregl-ctrl-zoom-in'),
-        zoomOut = node.querySelector('.maplibregl-ctrl-zoom-out');
+      const zoomIn = node.querySelector('.maplibregl-ctrl-zoom-in');
+      const zoomOut = node.querySelector('.maplibregl-ctrl-zoom-out');
       if (zoomIn) {
         zoomIn.title = 'Perbesar peta';
         zoomIn.setAttribute('aria-label', 'Perbesar peta');

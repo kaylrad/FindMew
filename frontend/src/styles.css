@@ -95,9 +95,6 @@ a:focus-visible {
     @apply fixed top-[88px] left-1/2 z-[2000] flex w-[calc(100%-32px)] max-w-md -translate-x-1/2 items-center gap-3 rounded-2xl border bg-[#fffef8] px-5 py-4 text-xs font-semibold leading-6 shadow-xl;
   }
 }
-.pet-room {
-  aspect-ratio: 1.8;
-}
 .bottom-nav {
   position: fixed;
   z-index: 800;
@@ -152,47 +149,7 @@ a:focus-visible {
 .nav-camera {
   color: #bc9775;
 }
-.leaflet-control-attribution {
-  font-size: 9px !important;
-}
-.cat-bounce {
-  animation: cat-bob 0.65s ease-in-out 3;
-}
-.float-heart {
-  animation: float-up 1.3s ease-in-out infinite;
-}
-@keyframes cat-bob {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 -7px;
-    rotate: 1deg;
-  }
-}
-@keyframes float-up {
-  0% {
-    opacity: 0;
-    translate: 0 0;
-  }
-  30% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 0;
-    translate: 0 -65px;
-  }
-}
 @media (max-width: 767px) {
-  .pet-room {
-    aspect-ratio: 1.18;
-  }
-  .pet-room > .room-background {
-    width: 150%;
-    left: -25%;
-    max-width: none;
-  }
   .bottom-nav {
     bottom: 0;
     width: 100%;

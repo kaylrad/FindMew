@@ -1,10 +1,10 @@
 import React, { useEffect, useId, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, ChevronLeft, LockKeyhole, LoaderCircle } from 'lucide-react';
-import { useApp } from '../context';
+import { useApp } from '../../context';
 import MewScene from './MewScene';
 import MewAccessoryArt, { mewAccessoryAspect } from './MewAccessoryArt';
-import { mewCats, mewRooms, mewAccessories } from '../lib/mymew-catalog';
+import { mewCats, mewRooms, mewAccessories } from '../../lib/mymew-catalog';
 import './mew-customization.css';
 
 const accessoryById = new Map(mewAccessories.map((item) => [item.id, item]));
@@ -28,16 +28,16 @@ export default function MewCustomization({ mode, onClose, onStore }) {
     equipped.filter((item) => ['head', 'face'].includes(item.slot)).map((item) => item.product_id)
   );
   const [category, setCategory] = useState('all');
-  const panel = useRef(null),
-    closeRef = useRef(onClose),
-    busyRef = useRef(busy);
+  const panel = useRef(null);
+  const closeRef = useRef(onClose);
+  const busyRef = useRef(busy);
   const titleId = useId();
   closeRef.current = onClose;
   busyRef.current = busy;
 
   useEffect(() => {
-    const previous = document.activeElement,
-      overflow = document.body.style.overflow;
+    const previous = document.activeElement;
+    const overflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     panel.current?.focus();
     const keydown = (event) => {
@@ -52,8 +52,8 @@ export default function MewCustomization({ mode, onClose, onStore }) {
           'button:not(:disabled),input:not(:disabled),a[href],[tabindex="0"]'
         ),
       ];
-      const first = controls[0],
-        last = controls.at(-1);
+      const first = controls[0];
+      const last = controls.at(-1);
       if (!first) {
         event.preventDefault();
         return;
@@ -276,9 +276,10 @@ export default function MewCustomization({ mode, onClose, onStore }) {
               </div>
               <div className="mew-accessory-grid" role="group" aria-label="Pilihan aksesori MyMew">
                 {visibleAccessories.map((item) => {
-                  const isOwned = owned(item.id),
-                    selected = loadout.includes(item.id),
-                    price = products.find((product) => product.id === item.id)?.price ?? item.price;
+                  const isOwned = owned(item.id);
+                  const selected = loadout.includes(item.id);
+                  const price =
+                    products.find((product) => product.id === item.id)?.price ?? item.price;
                   return (
                     <button
                       type="button"
@@ -344,9 +345,7 @@ export default function MewCustomization({ mode, onClose, onStore }) {
                     </span>
                   )}
                   <span className="mew-choice-name">{item.name}</span>
-                  <span className="mew-choice-description">
-                    {item.description || item.subtitle}
-                  </span>
+                  <span className="mew-choice-description">{item.description}</span>
                   {choice === item.id && <SelectionMark />}
                 </label>
               ))}

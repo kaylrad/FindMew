@@ -13,6 +13,3 @@ coverage/
 artifacts/
 qa/
 reports/
-
-.vercel
-.env*

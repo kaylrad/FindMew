@@ -2,11 +2,13 @@ import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { ShoppingBag, ArrowLeft, Check, Backpack, Sparkles } from 'lucide-react';
 import { useApp } from '../context';
 import { Button, Coin, Modal, Empty } from '../components/ui';
-const MewCustomization = lazy(() => import('../components/MewCustomization'));
-import MewAccessoryArt, { mewAccessoryAspect } from '../components/MewAccessoryArt';
+
+const MewCustomization = lazy(() => import('../components/mymew/MewCustomization'));
+import MewAccessoryArt, { mewAccessoryAspect } from '../components/mymew/MewAccessoryArt';
 import { mewAccessories } from '../lib/mymew-catalog';
 
 const accessoryArt = new Map(mewAccessories.map((item) => [item.id, item]));
+
 function ProductArt({ product, large = false }) {
   const accessory = accessoryArt.get(product.id);
   const artWidth = accessory
@@ -37,12 +39,12 @@ function ProductArt({ product, large = false }) {
 
 export default function Store({ navigate, initialProductId }) {
   const { data, online, busy, mutate } = useApp();
-  const [category, setCategory] = useState('all'),
-    [bag, setBag] = useState(false),
-    [bagCategory, setBagCategory] = useState('accessory'),
-    [selected, setSelected] = useState(null),
-    [appearanceOpen, setAppearanceOpen] = useState(false),
-    [foodPurchased, setFoodPurchased] = useState(false);
+  const [category, setCategory] = useState('all');
+  const [bag, setBag] = useState(false);
+  const [bagCategory, setBagCategory] = useState('accessory');
+  const [selected, setSelected] = useState(null);
+  const [appearanceOpen, setAppearanceOpen] = useState(false);
+  const [foodPurchased, setFoodPurchased] = useState(false);
   const { products, inventory, equipped, profile } = data;
   const stock = (id) => inventory.find((item) => item.product_id === id)?.quantity || 0;
   const worn = (id) => equipped.some((item) => item.product_id === id);

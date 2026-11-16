@@ -1,23 +1,14 @@
 import React, { useState } from 'react';
-import {
-  Search,
-  Camera,
-  Lock,
-  Globe,
-  MapPin,
-  CalendarDays,
-  Pencil,
-  Trash2,
-  ArrowLeft,
-} from 'lucide-react';
+import { Search, Camera, Lock, Globe, MapPin, CalendarDays, Pencil, Trash2 } from 'lucide-react';
 import { useApp } from '../context';
 import CollectionFields from '../components/CollectionFields';
 import { Photo, Button, Modal, Empty, dateLabel } from '../components/ui';
+
 export default function Collection({ openCollection, navigate }) {
-  const { collections, total, loadMore, online } = useApp(),
-    [query, setQuery] = useState(''),
-    [filter, setFilter] = useState('all'),
-    [more, setMore] = useState(false);
+  const { collections, total, loadMore, online } = useApp();
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState('all');
+  const [more, setMore] = useState(false);
   const shown = collections.filter(
     (c) =>
       c.name.toLowerCase().includes(query.toLowerCase()) &&
@@ -113,11 +104,16 @@ export default function Collection({ openCollection, navigate }) {
     </>
   );
 }
+
 export function CollectionDetail({ item, onClose }) {
-  const { online, busy, mutate } = useApp(),
-    [editing, setEditing] = useState(false),
-    [deleting, setDeleting] = useState(false),
-    [form, setForm] = useState({ name: item.name, notes: item.notes, visibility: item.visibility });
+  const { online, busy, mutate } = useApp();
+  const [editing, setEditing] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [form, setForm] = useState({
+    name: item.name,
+    notes: item.notes,
+    visibility: item.visibility,
+  });
   const change = (e) => setForm({ ...form, [e.target.name]: e.target.value });
   return (
     <Modal

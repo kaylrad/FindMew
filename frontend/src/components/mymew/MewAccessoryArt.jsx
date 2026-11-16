@@ -1,21 +1,15 @@
 import React from 'react';
 
 export function mewAccessoryAspect(item) {
-  const width = Number.parseFloat(item.artWidth),
-    height = Number.parseFloat(item.artHeight);
+  const width = Number.parseFloat(item.artWidth);
+  const height = Number.parseFloat(item.artHeight);
   return width > 0 && height > 0 ? width / height : item.slot === 'head' ? 1.5 : 3.5;
 }
 
 // Positions refer to the unmodified exported SVG, including its original stroke bounds.
-export function MewAccessoryArt({
-  item,
-  className = '',
-  style = {},
-  alt = item.name || '',
-  ...props
-}) {
-  const artWidth = Number.parseFloat(item.artWidth),
-    artHeight = Number.parseFloat(item.artHeight);
+function MewAccessoryArt({ item, className = '', style = {}, alt = item.name || '', ...props }) {
+  const artWidth = Number.parseFloat(item.artWidth);
+  const artHeight = Number.parseFloat(item.artHeight);
   const hasDimensions = artWidth > 0 && artHeight > 0;
   return (
     <div

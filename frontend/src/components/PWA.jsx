@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useRegisterSW } from 'virtual:pwa-register/react';
 import { Download, Share, PlusSquare, RefreshCw, Smartphone, CheckCircle2 } from 'lucide-react';
 import { Button, Modal } from './ui';
+
 export function useInstall() {
-  const [prompt, setPrompt] = useState(null),
-    [installed, setInstalled] = useState(
-      window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true
-    );
+  const [prompt, setPrompt] = useState(null);
+  const [installed, setInstalled] = useState(
+    window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true
+  );
   useEffect(() => {
     const before = (e) => {
       e.preventDefault();
@@ -35,6 +36,7 @@ export function useInstall() {
     },
   };
 }
+
 export function InstallModal({ onClose, installation }) {
   const ios =
     /iPad|iPhone|iPod/.test(navigator.userAgent) ||
@@ -96,6 +98,7 @@ export function InstallModal({ onClose, installation }) {
     </Modal>
   );
 }
+
 export function UpdateNotice() {
   const {
     offlineReady: [offlineReady, setOfflineReady],

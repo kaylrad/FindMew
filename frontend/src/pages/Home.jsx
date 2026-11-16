@@ -1,12 +1,13 @@
 import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { ArrowRight, Droplet, Heart, ShoppingBag, Zap } from 'lucide-react';
 import { useApp } from '../context';
-import { MewHomeRoom } from '../components/MewScene';
-const MewCustomization = lazy(() => import('../components/MewCustomization'));
+import { MewHomeRoom } from '../components/mymew/MewScene';
+
+const MewCustomization = lazy(() => import('../components/mymew/MewCustomization'));
 import { mewUiAssets } from '../lib/mymew-catalog';
 import { Modal, Button } from '../components/ui';
 import { GREETING_INTERVAL_MS, POSE_DURATION_MS, resolvePetPose, canGreet } from '../lib/cat-poses';
-import './mymew-home.css';
+import '../components/mymew/mymew-home.css';
 
 function StatusBar({ label, value, color, icon }) {
   return (
@@ -69,16 +70,16 @@ function SceneAction({ label, icon, background, onClick, iconWidth = 32, iconHei
 export default function Home({ navigate }) {
   const { data, online, busy, mutate } = useApp();
   const { pet, inventory, products, equipped } = data;
-  const [effect, setEffect] = useState(''),
-    [care, setCare] = useState(null),
-    [rename, setRename] = useState(false),
-    [name, setName] = useState(pet.name);
-  const [customize, setCustomize] = useState(null),
-    [statusOpen, setStatusOpen] = useState(false);
-  const [gesture, setGesture] = useState(null),
-    [clock, setClock] = useState(Date.now);
-  const poseTimer = useRef(null),
-    latest = useRef(null);
+  const [effect, setEffect] = useState('');
+  const [care, setCare] = useState(null);
+  const [rename, setRename] = useState(false);
+  const [name, setName] = useState(pet.name);
+  const [customize, setCustomize] = useState(null);
+  const [statusOpen, setStatusOpen] = useState(false);
+  const [gesture, setGesture] = useState(null);
+  const [clock, setClock] = useState(Date.now);
+  const poseTimer = useRef(null);
+  const latest = useRef(null);
   const foods = products
     .filter((product) => product.category === 'food')
     .map((product) => ({

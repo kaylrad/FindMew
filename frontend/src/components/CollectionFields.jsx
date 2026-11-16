@@ -1,5 +1,6 @@
 import React from 'react';
 import { Lock, Globe } from 'lucide-react';
+
 export default function CollectionFields({ form, change }) {
   return (
     <div className="space-y-4">
