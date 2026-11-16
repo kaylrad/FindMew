@@ -4,7 +4,7 @@ Import repository `kaylrad/FindMew` dari root. `vercel.json` mengatur build `npm
 
 ## Environment server
 
-Isi environment production dan preview di Vercel:
+Isi environment production di Vercel. Untuk preview, gunakan proyek Supabase terpisah agar kode percobaan tidak memakai secret production:
 
 | Nama                       | Nilai/purpose                                                   |
 | -------------------------- | --------------------------------------------------------------- |
