@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import rateLimit from 'express-rate-limit';
 import path from 'node:path';
 import { AppError } from '../errors.js';
 import { backendRoot } from '../config.js';
@@ -11,7 +10,12 @@ import {
   collectionSchema,
   collectionPatchSchema,
 } from '../validation.js';
-import { photoUpload, normalizePhoto, uploadCapacity } from '../services/photos.js';
+import {
+  photoUpload,
+  normalizePhoto,
+  uploadCapacity,
+  uploadRateLimit,
+} from '../services/photos.js';
 import { uploadHash } from '../services/supabase.js';
 
 export async function sendPhoto(res, photo) {
@@ -26,23 +30,7 @@ export function collectionRoutes(store, config) {
     '/',
     asyncRoute(async (req, res) => res.json(await store.list(req.user.id, pagination(req))))
   );
-  const uploadLimit = rateLimit({
-    windowMs: 60000,
-    limit: config.uploadRateLimit,
-    standardHeaders: 'draft-7',
-    legacyHeaders: false,
-    keyGenerator: (req) => req.user.id,
-    handler(req, res, next) {
-      next(
-        new AppError(
-          'UPLOAD_RATE_LIMITED',
-          'Terlalu banyak upload. Tunggu sebentar lalu coba lagi.',
-          429,
-          { retryAfter: 60 }
-        )
-      );
-    },
-  });
+  const uploadLimit = uploadRateLimit(config.uploadRateLimit);
   router.post(
     '/',
     (req, res, next) => {

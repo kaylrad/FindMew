@@ -23,6 +23,7 @@ const rpcNames = new Set([
   'claim_upload_cleanup',
   'finish_upload_cleanup',
   'release_upload_cleanup',
+  'set_collection_like',
 ]);
 const tables = new Set([
   'profiles',
@@ -35,6 +36,7 @@ const tables = new Set([
   'coin_transactions',
   'upload_jobs',
   'storage_gc',
+  'collection_likes',
 ]);
 const columns = new Set([
   'id',
@@ -64,6 +66,9 @@ const columns = new Set([
   'slot',
   'cat_type_id',
   'room_id',
+  'like_count',
+  'collection_id',
+  'photo_updated_at',
 ]);
 const ident = (s) => {
   if (!columns.has(s)) throw new Error('Unexpected column: ' + s);
@@ -139,7 +144,7 @@ export async function supabaseTransport() {
             503
           );
         }
-        if (objects.has(key))
+        if (objects.has(key) && headers.get('x-upsert') !== 'true')
           return json(
             { statusCode: '409', error: 'Duplicate', message: 'The resource already exists' },
             409
@@ -206,6 +211,17 @@ export async function supabaseTransport() {
         }
         if (filter === 'not.is.null') {
           filters.push(col + ' is not null');
+          continue;
+        }
+        if (filter.startsWith('in.(') && filter.endsWith(')')) {
+          const list = filter
+            .slice(4, -1)
+            .split(',')
+            .map((value) => {
+              values.push(value.replace(/^"|"$/g, ''));
+              return '$' + values.length;
+            });
+          filters.push(col + ' in (' + list.join(',') + ')');
           continue;
         }
         const operators = { eq: '=', neq: '<>', lt: '<', lte: '<=' },

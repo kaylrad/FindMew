@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { Search, Camera, Lock, Globe, MapPin, CalendarDays, Pencil, Trash2 } from 'lucide-react';
+import { Search, Camera, Lock, Globe, MapPin, Heart, Pencil, Trash2 } from 'lucide-react';
 import { useApp } from '../context';
 import CollectionFields from '../components/CollectionFields';
-import { Photo, Button, Modal, Empty, dateLabel } from '../components/ui';
+import {
+  Photo,
+  Button,
+  Modal,
+  Empty,
+  CollectionTimes,
+  fullTimestamp,
+  shortTimestamp,
+} from '../components/ui';
 
 export default function Collection({ openCollection, navigate }) {
   const { collections, total, loadMore, online } = useApp();
@@ -16,11 +24,10 @@ export default function Collection({ openCollection, navigate }) {
   );
   return (
     <>
-      <p className="eyebrow">SETIAP PERTEMUAN PUNYA CERITA</p>
       <div className="mt-3 flex items-start justify-between gap-4">
         <div>
           <h1 className="page-title">Koleksi Mew</h1>
-          <p className="mt-2 text-sm text-muted">{total} teman berbulu, banyak kenangan kecil.</p>
+          <p className="mt-2 text-sm text-muted">{total} koleksi Mew yang kamu punya.</p>
         </div>
         <Button
           onClick={() => navigate('add')}
@@ -68,12 +75,29 @@ export default function Collection({ openCollection, navigate }) {
                   {item.visibility === 'private' ? <Lock size={12} /> : <Globe size={12} />}
                 </span>
               </div>
-              <div className="flex items-center justify-between p-3.5">
-                <div>
-                  <h2 className="text-sm font-extrabold">{item.name}</h2>
-                  <p className="mt-1 text-[10px] text-muted">{dateLabel(item.created_at)}</p>
+              <div className="flex items-center justify-between gap-2 p-3.5">
+                <div className="min-w-0">
+                  <h2 className="truncate text-sm font-extrabold">{item.name}</h2>
+                  <time
+                    dateTime={item.created_at}
+                    title={fullTimestamp(item.created_at)}
+                    className="mt-1 block text-[10px] text-muted"
+                  >
+                    {shortTimestamp(item.created_at)}
+                  </time>
                 </div>
-                {item.latitude != null && <MapPin size={15} className="text-[#a5b093]" />}
+                <span className="flex shrink-0 items-center gap-2">
+                  {item.like_count > 0 && (
+                    <span
+                      className="flex items-center gap-0.5 text-[10px] font-bold text-[#c0887b]"
+                      aria-label={item.like_count + ' suka'}
+                    >
+                      <Heart size={12} fill="currentColor" aria-hidden="true" />
+                      {item.like_count}
+                    </span>
+                  )}
+                  {item.latitude != null && <MapPin size={15} className="text-[#a5b093]" />}
+                </span>
               </div>
             </button>
           ))}
@@ -179,19 +203,25 @@ export function CollectionDetail({ item, onClose }) {
           <div className="aspect-[1.15] overflow-hidden rounded-2xl">
             <Photo item={item} />
           </div>
-          <div className="mt-5 flex flex-wrap gap-3 text-[11px] text-muted">
-            <span className="flex items-center gap-1.5">
-              <CalendarDays size={13} />
-              {dateLabel(item.created_at)}
-            </span>
+          <CollectionTimes item={item} className="mt-5" />
+          <div className="mt-2 flex flex-wrap gap-3 text-[11px] text-muted">
             <span className="flex items-center gap-1.5">
               {item.visibility === 'private' ? <Lock size={13} /> : <Globe size={13} />}{' '}
               {item.visibility === 'private' ? 'Hanya kamu' : 'Publik'}
             </span>
+            {(item.visibility === 'public' || item.like_count > 0) && (
+              <span className="flex items-center gap-1.5">
+                <Heart
+                  size={13}
+                  className={item.like_count ? 'text-[#c0887b]' : ''}
+                  fill={item.like_count ? 'currentColor' : 'none'}
+                />
+                {item.like_count
+                  ? 'Disukai ' + item.like_count + ' penjelajah'
+                  : 'Belum ada yang menyukai'}
+              </span>
+            )}
           </div>
-          <p className="mt-4 whitespace-pre-wrap text-sm leading-7">
-            {item.notes || 'Sebuah pertemuan kecil yang layak dikenang. ♡'}
-          </p>
           <p className="mt-4 flex items-start gap-2 text-xs leading-6 text-muted">
             <MapPin size={15} className="mt-1 shrink-0" />
             {item.latitude != null

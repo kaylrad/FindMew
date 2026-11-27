@@ -38,6 +38,11 @@
   align-items: flex-start;
   gap: 16px;
 }
+/* --mew-wall* come from lib/wall-contrast.js: the wall's negative, adjusted to pass contrast. */
+.mew-customization-heading h1,
+.mew-customization-heading p {
+  text-shadow: 0 1px 3px var(--mew-wall, transparent);
+}
 .mew-customization-heading h1 {
   margin: 0;
   font-size: 23px;
@@ -45,12 +50,13 @@
   line-height: 31px;
   letter-spacing: -0.45px;
   overflow-wrap: anywhere;
+  color: var(--mew-wall-ink, #41463d);
 }
 .mew-customization-heading p {
   margin: 0;
   font-size: 12px;
   line-height: 17px;
-  color: #756653;
+  color: var(--mew-wall-muted, #756653);
 }
 .mew-customization-back {
   width: 40px;
@@ -102,6 +108,15 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.mew-customization[data-mode='rooms'] .mew-preview-name,
+.mew-customization[data-mode='rooms'] .mew-preview-caption {
+  background: var(--mew-wall);
+  color: var(--mew-wall-ink);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--mew-wall-ink) 30%, transparent);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 .mew-customization-options {
   position: relative;
@@ -292,6 +307,28 @@
   margin-top: 4px;
   font-size: 10px;
   line-height: 13px;
+}
+/* Each room card is painted in its own wall colour, with that wall's readable negative text. */
+.mew-choice-grid-rooms .mew-choice-card {
+  background: var(--mew-card-wall, #f5eee2);
+  border-color: color-mix(in srgb, var(--mew-card-wall-ink) 20%, var(--mew-card-wall));
+  color: var(--mew-card-wall-ink, #41463d);
+}
+.mew-choice-grid-rooms .mew-choice-description {
+  color: var(--mew-card-wall-muted, #756653);
+}
+.mew-choice-grid-rooms .mew-choice-card.is-selected {
+  background: var(--mew-card-wall, #edf0e5);
+  border-color: var(--mew-card-wall, #788967);
+  box-shadow:
+    0 0 0 2px #fffbf5,
+    0 0 0 4px #788967;
+}
+.mew-choice-grid-rooms .mew-choice-check {
+  box-shadow: 0 0 0 2px #fffbf5;
+}
+.mew-choice-grid-rooms .mew-choice-card:has(input:focus-visible) {
+  outline-offset: 6px;
 }
 .mew-accessory-categories {
   display: flex;

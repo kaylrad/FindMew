@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { X, LoaderCircle, Coins, AlertCircle, Check, ImageOff } from 'lucide-react';
+import { X, LoaderCircle, Coins, AlertCircle, Check, ImageOff, CalendarClock } from 'lucide-react';
 import { useApp } from '../context';
 import { request } from '../lib/api';
-import { readPhoto, writePhoto, cacheGeneration } from '../lib/cache';
+import { readPhoto, writePhoto, deletePhoto, cacheGeneration } from '../lib/cache';
 
 export function Button({ children, variant = 'primary', className = '', busy = false, ...props }) {
   return (
@@ -160,8 +160,119 @@ export function Toast() {
     </div>
   ) : null;
 }
-export const dateLabel = (d) =>
-  new Date(d).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+/** "27 Nov 2026, 14.35" for cards. */
+export const shortTimestamp = (d) =>
+  new Date(d).toLocaleString('id-ID', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+/** "Jumat, 27 November 2026 pukul 14.35 WIB" for details. */
+export const fullTimestamp = (d) =>
+  new Date(d).toLocaleString('id-ID', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZoneName: 'short',
+  });
+const relativeUnits = [
+  ['year', 31536000],
+  ['month', 2592000],
+  ['week', 604800],
+  ['day', 86400],
+  ['hour', 3600],
+  ['minute', 60],
+];
+/** "baru saja", "5 menit yang lalu", "kemarin" ... */
+export function relativeTime(d, now = Date.now()) {
+  const seconds = Math.round((new Date(d).getTime() - now) / 1000);
+  if (Math.abs(seconds) < 60) return 'baru saja';
+  const format = new Intl.RelativeTimeFormat('id', { numeric: 'auto' });
+  for (const [unit, size] of relativeUnits)
+    if (Math.abs(seconds) >= size) return format.format(Math.trunc(seconds / size), unit);
+  return 'baru saja';
+}
+/** Creation time of a collection, with when it was last edited if that differs. */
+export function CollectionTimes({ item, className = '' }) {
+  const edited =
+    item.updated_at &&
+    new Date(item.updated_at).getTime() - new Date(item.created_at).getTime() > 60000;
+  return (
+    <div className={`space-y-1 text-[11px] leading-5 text-muted ${className}`}>
+      <p className="flex items-start gap-1.5">
+        <CalendarClock size={13} className="mt-[3px] shrink-0" aria-hidden="true" />
+        <span>
+          Ditemukan{' '}
+          <time dateTime={item.created_at} className="font-bold text-[#7c8270]">
+            {fullTimestamp(item.created_at)}
+          </time>{' '}
+          · {relativeTime(item.created_at)}
+        </span>
+      </p>
+      {edited && (
+        <p className="pl-[19px]">
+          Diperbarui <time dateTime={item.updated_at}>{shortTimestamp(item.updated_at)}</time>
+        </p>
+      )}
+    </div>
+  );
+}
+
+/** Uploaded profile photo, falling back to the emoji avatar. */
+export function ProfileAvatar({ profile, className = '' }) {
+  const { session, online } = useApp();
+  const [src, setSrc] = useState(null);
+  const version = profile.photo_updated_at;
+  const uid = session?.user.id;
+  useEffect(() => {
+    if (!version) {
+      setSrc(null);
+      if (uid) deletePhoto(uid, 'profile');
+      return;
+    }
+    let cancelled = false;
+    let url;
+    const generation = cacheGeneration();
+    const controller = new AbortController();
+    const show = (blob) => {
+      if (url) URL.revokeObjectURL(url);
+      url = URL.createObjectURL(blob);
+      setSrc(url);
+    };
+    (async () => {
+      try {
+        const cached = uid ? await readPhoto(uid, 'profile') : null;
+        if (cached && !cancelled) show(cached);
+        if (!online) return;
+        const fresh = await request('/profile/photo', { blob: true, signal: controller.signal });
+        if (cancelled) return;
+        show(fresh);
+        if (uid) await writePhoto(uid, 'profile', fresh, generation);
+      } catch {}
+    })();
+    return () => {
+      cancelled = true;
+      controller.abort();
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [version, uid, online]);
+  return src ? (
+    <img
+      src={src}
+      alt={`Foto profil ${profile.name}`}
+      className={`h-full w-full object-cover ${className}`}
+    />
+  ) : (
+    <span role="img" aria-label={`Avatar ${profile.name}`} className={className}>
+      {profile.avatar}
+    </span>
+  );
+}
 
 export function Empty({ icon: Icon, title, children }) {
   return (

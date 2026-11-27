@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { createHash } from 'node:crypto';
 import { AppError, databaseError, fail } from '../errors.js';
 import { effectivePet, petOptions } from './catalog.js';
+const profilePhotoPath = (id) => 'profiles/' + id + '.webp';
 
 export class SupabaseStore {
   constructor(config, { fetch: transport = globalThis.fetch } = {}) {
@@ -39,7 +40,7 @@ export class SupabaseStore {
     const { data, error } = await this.client.storage.getBucket(this.config.bucket);
     if (
       !status?.database ||
-      status.schemaVersion < 5 ||
+      status.schemaVersion < 6 ||
       !status.catalogReady ||
       error ||
       data?.public !== false
@@ -101,12 +102,23 @@ export class SupabaseStore {
       total: count,
     };
   }
+  async likedBy(id, ids) {
+    if (!ids.length) return new Set();
+    const { data } = await this.query(
+      this.client
+        .from('collection_likes')
+        .select('collection_id')
+        .eq('user_id', id)
+        .in('collection_id', ids)
+    );
+    return new Set(data.map((row) => row.collection_id));
+  }
   async exploreMap(id, { offset = 0, limit = 100 } = {}) {
     const { data, count } = await this.query(
       this.client
         .from('collections')
         .select(
-          'id,user_id,name,visibility,latitude,longitude,created_at,profiles!inner(name,avatar)',
+          'id,user_id,name,visibility,latitude,longitude,created_at,like_count,profiles!inner(name,avatar)',
           { count: 'exact' }
         )
         .or(`user_id.eq.${id},visibility.eq.public`)
@@ -117,10 +129,15 @@ export class SupabaseStore {
         .order('id')
         .range(offset, offset + limit - 1)
     );
+    const liked = await this.likedBy(
+      id,
+      data.map((item) => item.id)
+    );
     return {
       items: data.map(({ profiles, user_id, ...item }) => ({
         ...item,
         owned: user_id === id,
+        liked: liked.has(item.id),
         uploader: profiles.name,
         avatar: profiles.avatar,
       })),
@@ -132,7 +149,7 @@ export class SupabaseStore {
       this.client
         .from('collections')
         .select(
-          'id,user_id,name,notes,visibility,fed,latitude,longitude,created_at,profiles!inner(name,avatar)'
+          'id,user_id,name,notes,visibility,fed,latitude,longitude,created_at,like_count,profiles!inner(name,avatar)'
         )
         .eq('id', cid)
         .or(`user_id.eq.${id},visibility.eq.public`)
@@ -143,7 +160,17 @@ export class SupabaseStore {
     );
     if (!data) fail('NOT_FOUND');
     const { profiles, user_id, ...item } = data;
-    return { ...item, owned: user_id === id, uploader: profiles.name, avatar: profiles.avatar };
+    const liked = await this.likedBy(id, [item.id]);
+    return {
+      ...item,
+      owned: user_id === id,
+      liked: liked.has(item.id),
+      uploader: profiles.name,
+      avatar: profiles.avatar,
+    };
+  }
+  async setLike(id, cid, liked) {
+    return this.rpc('set_collection_like', { p_user: id, p_collection: cid, p_liked: liked });
   }
   async createCollection(id, data, file, key, hash) {
     const job = await this.rpc('reserve_upload', { p_user: id, p_request: key, p_hash: hash });
@@ -241,6 +268,31 @@ export class SupabaseStore {
     return (
       await this.query(this.client.from('profiles').update(data).eq('id', id).select().single())
     ).data;
+  }
+  async setProfilePhoto(id, buffer) {
+    // One object per user: a new upload replaces the old photo, so nothing is left behind.
+    const { error } = await this.storage.upload(profilePhotoPath(id), buffer, {
+      contentType: 'image/webp',
+      upsert: true,
+    });
+    if (error)
+      throw new AppError('UPLOAD_FAILED', 'Foto profil gagal diunggah. Coba lagi sebentar.', 503);
+    return this.updateProfile(id, { photo_updated_at: new Date().toISOString() });
+  }
+  async removeProfilePhoto(id) {
+    const profile = await this.updateProfile(id, { photo_updated_at: null });
+    // The row no longer points at the file; a failed removal is overwritten by the next upload.
+    await this.storage.remove([profilePhotoPath(id)]).catch(() => {});
+    return profile;
+  }
+  async profilePhoto(id) {
+    const { data } = await this.query(
+      this.client.from('profiles').select('photo_updated_at').eq('id', id).maybeSingle()
+    );
+    if (!data?.photo_updated_at) fail('NOT_FOUND');
+    const { data: blob, error } = await this.storage.download(profilePhotoPath(id));
+    if (error) throw new AppError('PHOTO_UNAVAILABLE', 'Foto belum dapat dimuat.', 503);
+    return { buffer: Buffer.from(await blob.arrayBuffer()) };
   }
   async updatePet(id, patch) {
     return effectivePet(

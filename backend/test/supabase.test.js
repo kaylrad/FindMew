@@ -61,7 +61,7 @@ test('real Supabase SDK verifies user tokens and keeps Auth outages separate fro
 test('readiness checks schema, seed and private Storage without exposing credentials', async () => {
   const ready = await request(api).get('/api/ready');
   assert.equal(ready.status, 200);
-  assert.equal(ready.body.schemaVersion, 5);
+  assert.equal(ready.body.schemaVersion, 6);
   assert.equal(ready.body.storage, true);
   remote.faults.publicBucket = true;
   assert.equal((await request(api).get('/api/ready')).status, 503);

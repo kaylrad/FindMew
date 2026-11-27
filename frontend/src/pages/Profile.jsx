@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Pencil,
   Camera,
@@ -10,9 +10,98 @@ import {
   ShieldCheck,
   Wifi,
   WifiOff,
+  ImagePlus,
+  Trash2,
 } from 'lucide-react';
 import { useApp } from '../context';
-import { Button, Modal } from '../components/ui';
+import { Button, Modal, ProfileAvatar } from '../components/ui';
+import { compressImage, MAX_SOURCE_PHOTO_BYTES } from '../lib/image';
+
+function ProfilePhotoControl() {
+  const { data, online, busy, mutate, notify } = useApp();
+  const input = useRef(null);
+  const [preparing, setPreparing] = useState(false);
+  const hasPhoto = Boolean(data.profile.photo_updated_at);
+  async function choose(event) {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file) return;
+    if (file.size > MAX_SOURCE_PHOTO_BYTES) {
+      notify('Foto terlalu besar. Maksimal foto sumber 25 MB.', 'error');
+      return;
+    }
+    setPreparing(true);
+    let photo;
+    try {
+      photo = await compressImage(file, 1024);
+    } catch {
+      notify('Foto tidak dapat dibaca. Pilih JPEG, PNG, atau WebP.', 'error');
+      return;
+    } finally {
+      setPreparing(false);
+    }
+    const body = new FormData();
+    body.append('photo', photo, 'profile.jpg');
+    await mutate('/profile/photo', body, {
+      method: 'PUT',
+      action: 'profile-photo',
+      message: 'Foto profilmu berhasil diperbarui.',
+    });
+  }
+  return (
+    <fieldset className="mb-6">
+      <legend className="label mb-3">Foto profil</legend>
+      <div className="flex items-center gap-4">
+        <div className="grid h-20 w-20 shrink-0 place-items-center overflow-hidden rounded-full border-4 border-white bg-[#f0e6d1] text-4xl shadow-sm">
+          <ProfileAvatar profile={data.profile} />
+        </div>
+        <div className="min-w-0 space-y-2">
+          <input
+            ref={input}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            className="sr-only"
+            aria-label="Pilih foto profil"
+            onChange={choose}
+          />
+          <div className="flex flex-wrap gap-2">
+            <Button
+              type="button"
+              variant="secondary"
+              busy={preparing}
+              disabled={!online || busy}
+              onClick={() => input.current.click()}
+            >
+              <ImagePlus size={15} />
+              {hasPhoto ? 'Ganti foto' : 'Unggah foto'}
+            </Button>
+            {hasPhoto && (
+              <Button
+                type="button"
+                variant="ghost"
+                className="text-[#bd7d71]"
+                disabled={!online || busy || preparing}
+                onClick={() =>
+                  mutate('/profile/photo', null, {
+                    method: 'DELETE',
+                    action: 'remove-profile-photo',
+                    message: 'Foto profil dihapus. Avatar dipakai kembali.',
+                  })
+                }
+              >
+                <Trash2 size={15} />
+                Hapus
+              </Button>
+            )}
+          </div>
+          <p className="text-[10px] leading-5 text-muted">
+            JPEG, PNG, atau WebP. Foto dipotong persegi dan hanya tampil di akunmu.
+          </p>
+        </div>
+      </div>
+    </fieldset>
+  );
+}
 
 export default function Profile({ openInstall }) {
   const { data, online, busy, mutate, logout, config } = useApp();
@@ -21,20 +110,14 @@ export default function Profile({ openInstall }) {
   const [form, setForm] = useState(data.profile);
   return (
     <>
-      <p className="eyebrow">DI BALIK SETIAP CERITA MEW</p>
       <h1 className="page-title mt-3">Ruang kecilmu</h1>
       <section className="card mt-7 p-6 text-center md:p-10">
-        <div
-          className="mx-auto grid h-24 w-24 place-items-center rounded-full border-4 border-white bg-[#f0e6d1] text-5xl shadow-sm"
-          aria-label="Avatar"
-        >
-          {data.profile.avatar}
+        <div className="mx-auto grid h-24 w-24 place-items-center overflow-hidden rounded-full border-4 border-white bg-[#f0e6d1] text-5xl shadow-sm">
+          <ProfileAvatar profile={data.profile} />
         </div>
         <h2 className="mt-4 text-2xl font-extrabold">{data.profile.name}</h2>
         <p className="mt-1 text-xs text-muted">@{data.profile.username}</p>
-        <p className="mx-auto mt-4 max-w-md whitespace-pre-wrap text-sm leading-7 text-muted">
-          {data.profile.bio || 'Satu hari, satu pertemuan kecil.'}
-        </p>
+
         <Button
           variant="secondary"
           className="mt-5"
@@ -117,8 +200,14 @@ export default function Profile({ openInstall }) {
               );
             }}
           >
+            <ProfilePhotoControl />
             <fieldset>
-              <legend className="label mb-3">Pilih avatar</legend>
+              <legend className="label mb-1">Pilih avatar</legend>
+              <p className="mb-3 text-[10px] text-muted">
+                {data.profile.photo_updated_at
+                  ? 'Avatar dipakai saat foto profil dihapus.'
+                  : 'Dipakai selama belum ada foto profil.'}
+              </p>
               <div className="mb-5 flex flex-wrap gap-2">
                 {['🐱', '🐈', '🌼', '🌿', '🍑', '🐾'].map((a) => (
                   <button

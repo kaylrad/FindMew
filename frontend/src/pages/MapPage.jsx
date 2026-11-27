@@ -3,15 +3,44 @@ import {
   LocateFixed,
   MapPin,
   Lock,
-  CalendarDays,
+  Heart,
   Navigation,
   LoaderCircle,
   ExternalLink,
 } from 'lucide-react';
 import { useApp } from '../context';
 import { request } from '../lib/api';
-import { Photo, Button, Modal, dateLabel } from '../components/ui';
+import { Photo, Button, Modal, CollectionTimes } from '../components/ui';
 import ExplorerMap from '../components/map/ExplorerMap';
+
+const likeText = (count) =>
+  count ? count + ' penjelajah menyukai ini' : 'Belum ada yang menyukai';
+
+function LikeButton({ item, busy, onToggle }) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      disabled={busy}
+      aria-pressed={item.liked}
+      aria-label={(item.liked ? 'Batal suka ' : 'Suka ') + item.name}
+      className={
+        'inline-flex min-h-11 items-center gap-2 rounded-full border px-4 text-xs font-extrabold transition disabled:opacity-60 ' +
+        (item.liked
+          ? 'border-[#e8c2b9] bg-[#fbebe6] text-[#b0675a]'
+          : 'border-line bg-[#fffdf7] text-[#8b8f7d] hover:bg-[#fbf3ee]')
+      }
+    >
+      <Heart
+        size={17}
+        className={item.liked ? 'text-[#d3846f]' : ''}
+        fill={item.liked ? 'currentColor' : 'none'}
+      />
+      {item.liked ? 'Disukai' : 'Suka'}
+      <span className="font-bold opacity-80">· {item.like_count || 0}</span>
+    </button>
+  );
+}
 
 const initialMapState = { state: 'loading', message: '', loaded: false };
 const externalLocation = (item) =>
@@ -35,6 +64,7 @@ export default function MapPage({ focusId = null }) {
   const [locating, setLocating] = useState(false);
   const [mapState, setMapState] = useState(initialMapState);
   const [mapAttempt, setMapAttempt] = useState(0);
+  const [liking, setLiking] = useState(false);
   const detailRequest = useRef(null);
   const focused = useRef(null);
   const onMapStatus = useCallback(
@@ -109,6 +139,30 @@ export default function MapPage({ focusId = null }) {
     detailRequest.current?.abort();
     setSelected(null);
   }
+  function patchItem(id, patch) {
+    setSelected((current) => (current?.id === id ? { ...current, ...patch } : current));
+    setItems((list) => list.map((entry) => (entry.id === id ? { ...entry, ...patch } : entry)));
+  }
+  async function toggleLike() {
+    const item = selected;
+    if (!item || item.owned || liking) return;
+    const liked = !item.liked;
+    const before = { liked: item.liked, like_count: item.like_count || 0 };
+    // Optimistic: the heart reacts at once and is rolled back if the server refuses.
+    patchItem(item.id, { liked, like_count: Math.max(0, before.like_count + (liked ? 1 : -1)) });
+    setLiking(true);
+    try {
+      const result = await request('/explore/map/' + item.id + '/like', {
+        method: liked ? 'PUT' : 'DELETE',
+      });
+      patchItem(item.id, { liked: result.liked, like_count: result.like_count });
+    } catch (failure) {
+      patchItem(item.id, before);
+      notify(failure.message, 'error');
+    } finally {
+      setLiking(false);
+    }
+  }
 
   function locate() {
     if (!navigator.geolocation) {
@@ -138,10 +192,9 @@ export default function MapPage({ focusId = null }) {
 
   return (
     <>
-      <p className="eyebrow">ADA BANYAK MEW DI LUAR SANA</p>
-      <h1 className="page-title mt-3">Jejak teman berbulu</h1>
+      <h1 className="page-title mt-3">Jejak Cuking</h1>
       <p className="mt-2 text-sm leading-6 text-muted">
-        Jejak koleksimu dan pertemuan publik penjelajah lain. Tekan pin untuk mengenal kucingnya.
+        Jejak koleksim cukingmu dan cuking orang-orang.
       </p>
       <div
         className="relative mt-7 h-[58dvh] min-h-[380px] overflow-hidden rounded-[24px] border border-line bg-[#e8eddf]"
@@ -213,19 +266,28 @@ export default function MapPage({ focusId = null }) {
               <div className="aspect-[1.15] overflow-hidden rounded-2xl">
                 <Photo item={selected} publicPhoto={!selected.owned} />
               </div>
-              <h2 className="mt-5 text-xl font-extrabold">{selected.name}</h2>
-              <p className="mt-2 text-xs text-muted">
-                {selected.avatar} Ditemukan {selected.owned ? 'olehmu' : selected.uploader}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-3 text-[11px] text-muted">
-                <span className="flex items-center gap-1.5">
-                  <CalendarDays size={13} />
-                  {dateLabel(selected.created_at)}
-                </span>
+              <div className="mt-5 flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <h2 className="text-xl font-extrabold">{selected.name}</h2>
+                  <p className="mt-2 text-xs text-muted">
+                    {selected.avatar} Ditemukan {selected.owned ? 'olehmu' : selected.uploader}
+                  </p>
+                </div>
+                {!selected.owned && (
+                  <LikeButton item={selected} busy={liking || !online} onToggle={toggleLike} />
+                )}
+              </div>
+              <CollectionTimes item={selected} className="mt-4" />
+              <div className="mt-2 flex flex-wrap gap-3 text-[11px] text-muted">
                 <span className="flex items-center gap-1.5">
                   {selected.visibility === 'private' ? <Lock size={13} /> : <MapPin size={13} />}{' '}
                   {selected.visibility === 'private' ? 'Privat · hanya kamu' : 'Jejak publik'}
                 </span>
+                {selected.owned && selected.visibility === 'public' && (
+                  <span className="flex items-center gap-1.5">
+                    <Heart size={13} /> {likeText(selected.like_count)}
+                  </span>
+                )}
               </div>
               <p className="mt-4 whitespace-pre-wrap text-sm leading-7">
                 {selected.notes || 'Sebuah pertemuan kecil yang layak dikenang. ♡'}

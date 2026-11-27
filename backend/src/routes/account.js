@@ -11,8 +11,55 @@ import {
   accessorySchema,
   accessoryLoadoutSchema,
 } from '../validation.js';
-export function accountRoutes(store) {
+import {
+  profilePhotoUpload,
+  normalizeProfilePhoto,
+  uploadCapacity,
+  uploadRateLimit,
+  requireMultipart,
+} from '../services/photos.js';
+import { sendPhoto } from './collections.js';
+export function accountRoutes(store, config) {
   const router = Router();
+  // PUT likes and DELETE unlikes; both are safe to repeat.
+  for (const [method, liked] of [
+    ['put', true],
+    ['delete', false],
+  ])
+    router[method](
+      '/explore/map/:id/like',
+      asyncRoute(async (req, res) =>
+        res.json(await store.setLike(req.user.id, idSchema.parse(req.params.id), liked))
+      )
+    );
+  router.get(
+    '/profile/photo',
+    asyncRoute(async (req, res) => sendPhoto(res, await store.profilePhoto(req.user.id)))
+  );
+  router.put(
+    '/profile/photo',
+    requireMultipart,
+    uploadRateLimit(config.uploadRateLimit),
+    uploadCapacity(config.maxUploads),
+    profilePhotoUpload,
+    asyncRoute(async (req, res) => {
+      if (req.aborted || res.destroyed) {
+        req.releaseUpload?.();
+        return;
+      }
+      req.uploadProcessing = true;
+      try {
+        const photo = await normalizeProfilePhoto(req.file);
+        res.json(await store.setProfilePhoto(req.user.id, photo));
+      } finally {
+        req.releaseUpload?.();
+      }
+    })
+  );
+  router.delete(
+    '/profile/photo',
+    asyncRoute(async (req, res) => res.json(await store.removeProfilePhoto(req.user.id)))
+  );
   router.get(
     '/me',
     asyncRoute(async (req, res) => res.json(await store.state(req.user.id)))

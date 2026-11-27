@@ -130,7 +130,7 @@ export async function createApp(
   app.get('/api/internal/cleanup', maintenanceRoute(store, config.cronSecret));
   app.use('/api', authenticate);
   app.use('/api/collections', collectionRoutes(store, config));
-  app.use('/api', accountRoutes(store));
+  app.use('/api', accountRoutes(store, config));
   app.use('/api', (_, res, next) =>
     next(new AppError('NOT_FOUND', 'Endpoint tidak ditemukan.', 404))
   );

@@ -5,6 +5,7 @@ import { useApp } from '../../context';
 import MewScene from './MewScene';
 import MewAccessoryArt, { mewAccessoryAspect } from './MewAccessoryArt';
 import { mewCats, mewRooms, mewAccessories } from '../../lib/mymew-catalog';
+import { wallTextStyle } from '../../lib/wall-contrast';
 import './mew-customization.css';
 
 const accessoryById = new Map(mewAccessories.map((item) => [item.id, item]));
@@ -186,8 +187,10 @@ export default function MewCustomization({ mode, onClose, onStore }) {
         aria-modal="true"
         aria-labelledby={titleId}
         className="mew-customization"
+        data-mode={mode}
       >
-        <div className="mew-customization-preview">
+        {/* Text drawn over the preview follows the wall currently shown behind it. */}
+        <div className="mew-customization-preview" style={wallTextStyle(selectedRoom.wall)}>
           <MewScene pet={previewPet} equipped={previewEquipped} variant="preview" />
           <header className="mew-customization-heading">
             <button
@@ -327,6 +330,7 @@ export default function MewCustomization({ mode, onClose, onStore }) {
                 <label
                   key={item.id}
                   className={`mew-choice-card ${choice === item.id ? 'is-selected' : ''}`}
+                  style={mode === 'rooms' ? wallTextStyle(item.wall, '--mew-card-wall') : undefined}
                 >
                   <input
                     className="mew-choice-input"

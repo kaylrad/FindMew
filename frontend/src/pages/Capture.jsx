@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import {
   Camera,
   RotateCcw,
   MapPin,
+  MapPinned,
+  LocateFixed,
   Check,
   Coins,
   ArrowRight,
@@ -15,32 +17,10 @@ import {
 import { useApp } from '../context';
 import { Button } from '../components/ui';
 import CollectionFields from '../components/CollectionFields';
+import { compressImage, MAX_SOURCE_PHOTO_BYTES } from '../lib/image';
 
-async function compressImage(file) {
-  const url = URL.createObjectURL(file);
-  try {
-    const img = new Image();
-    img.src = url;
-    await img.decode();
-    const scale = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
-    const canvas = document.createElement('canvas');
-    canvas.width = Math.max(1, Math.round(img.naturalWidth * scale));
-    canvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
-    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
-    return await new Promise((resolve, reject) =>
-      canvas.toBlob(
-        (b) =>
-          b && b.size <= 4 * 1024 * 1024
-            ? resolve(b)
-            : reject(Error('Foto hasil kompresi masih terlalu besar. Pilih foto lain.')),
-        'image/jpeg',
-        0.82
-      )
-    );
-  } finally {
-    URL.revokeObjectURL(url);
-  }
-}
+// The map library is large, so it is only fetched when the picker opens.
+const LocationPicker = lazy(() => import('../components/map/LocationPicker'));
 
 export default function Capture({ navigate }) {
   const { config, online, busy, mutate, notify } = useApp();
@@ -50,8 +30,10 @@ export default function Capture({ navigate }) {
   const [starting, setStarting] = useState(false);
   const [cameraError, setCameraError] = useState('');
   const [form, setForm] = useState({ name: '', notes: '', visibility: 'private', fed: '' });
+  // { latitude, longitude, source: 'gps' | 'map' }
   const [location, setLocation] = useState(null);
   const [locating, setLocating] = useState(false);
+  const [picking, setPicking] = useState(false);
   const [success, setSuccess] = useState(null);
   const [processing, setProcessing] = useState(false);
   const video = useRef(null);
@@ -142,7 +124,7 @@ export default function Capture({ navigate }) {
   async function selectFile(e) {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 25 * 1024 * 1024) {
+    if (file.size > MAX_SOURCE_PHOTO_BYTES) {
       notify('Foto terlalu besar. Maksimal foto sumber 25 MB.', 'error');
       return;
     }
@@ -172,6 +154,7 @@ export default function Capture({ navigate }) {
           setLocation({
             latitude: Number(pos.coords.latitude.toFixed(3)),
             longitude: Number(pos.coords.longitude.toFixed(3)),
+            source: 'gps',
           });
           setLocating(false);
         }
@@ -291,7 +274,6 @@ export default function Capture({ navigate }) {
     );
   return (
     <>
-      <p className="eyebrow">TEMUKAN. ABADIKAN. SAYANGI.</p>
       <h1 className="page-title mt-3">Teman baru hari ini?</h1>
       <p className="mt-2 text-sm leading-6 text-muted">
         Foto koleksi mendapat {config.reward} koin. Jika kucing diberi makan, totalnya{' '}
@@ -316,11 +298,6 @@ export default function Capture({ navigate }) {
                   <Camera size={34} strokeWidth={1.3} />
                 </div>
                 <h2 className="text-xl font-extrabold">Ada Mew di dekatmu?</h2>
-                <p className="mt-3 text-xs leading-6 text-muted">
-                  Dekati dengan tenang, beri ruang,
-                  <br />
-                  dan abadikan tanpa mengganggu.
-                </p>
                 <Button className="mt-6" onClick={openCamera} busy={starting} disabled={!online}>
                   <Camera size={17} />
                   Buka kamera
@@ -457,22 +434,46 @@ export default function Capture({ navigate }) {
             <div className="flex items-center justify-between gap-2">
               <span className="flex items-center gap-2 text-xs font-extrabold">
                 <MapPin size={15} className="text-[#97a382]" />
-                {location ? 'Lokasi pin ditambahkan' : 'Lokasi pin di map'}
+                {!location
+                  ? 'Lokasi pin di map'
+                  : location.source === 'map'
+                    ? 'Lokasi dipilih di peta'
+                    : 'Lokasi dari GPS'}
               </span>
-              {location ? (
-                <button type="button" aria-label="Hapus lokasi" onClick={() => setLocation(null)}>
-                  <X size={15} />
-                </button>
-              ) : (
+              {location && (
                 <button
                   type="button"
-                  onClick={addLocation}
-                  disabled={locating || !online || busy}
-                  className="text-xs font-bold text-[#8c9875]"
+                  aria-label="Hapus lokasi"
+                  disabled={busy}
+                  onClick={() => setLocation(null)}
                 >
-                  {locating ? 'Mencari...' : 'Gunakan lokasiku'}
+                  <X size={15} />
                 </button>
               )}
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={addLocation}
+                disabled={locating || !online || busy}
+                className="flex min-h-10 items-center justify-center gap-1.5 rounded-lg border border-[#dfe3d3] bg-[#fffef9] px-2 text-xs font-bold text-[#7f8d6b] disabled:opacity-45"
+              >
+                {locating ? (
+                  <LoaderCircle size={14} className="animate-spin" />
+                ) : (
+                  <LocateFixed size={14} />
+                )}
+                {locating ? 'Mencari...' : 'Lokasiku'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setPicking(true)}
+                disabled={!online || busy || locating}
+                className="flex min-h-10 items-center justify-center gap-1.5 rounded-lg border border-[#dfe3d3] bg-[#fffef9] px-2 text-xs font-bold text-[#7f8d6b] disabled:opacity-45"
+              >
+                <MapPinned size={14} />
+                {location ? 'Ubah di peta' : 'Pilih di peta'}
+              </button>
             </div>
             <p className="mt-2 text-[10px] leading-5 text-muted">
               {location
@@ -497,6 +498,30 @@ export default function Capture({ navigate }) {
           </p>
         </form>
       </div>
+      {picking && (
+        <Suspense
+          fallback={
+            <div className="modal-overlay">
+              <p
+                role="status"
+                className="modal-panel flex max-w-md items-center gap-3 text-sm text-muted"
+              >
+                <LoaderCircle size={18} className="animate-spin" />
+                Menyiapkan peta...
+              </p>
+            </div>
+          }
+        >
+          <LocationPicker
+            initial={location}
+            onClose={() => setPicking(false)}
+            onPick={(value) => {
+              setLocation(value);
+              setPicking(false);
+            }}
+          />
+        </Suspense>
+      )}
     </>
   );
 }

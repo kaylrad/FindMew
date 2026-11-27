@@ -31,7 +31,11 @@ test('economy migration retains old balances, purchases, food, appearance and re
   try {
     assert.ok(before);
     const after = await scalar(db, 'select get_user_state($1)', [legacy]);
-    for (const field of ['profile', 'pet', 'inventory', 'equipped', 'collectionCount'])
+    // Later migrations may add columns; existing values must survive unchanged.
+    const { photo_updated_at, ...profile } = after.profile;
+    assert.equal(photo_updated_at, null);
+    assert.deepEqual(profile, before.profile);
+    for (const field of ['pet', 'inventory', 'equipped', 'collectionCount'])
       assert.deepEqual(after[field], before[field]);
     assert.equal(after.profile.coins, 125);
     assert.equal(await scalar(db, 'select price from purchases where user_id=$1', [legacy]), 60);
@@ -76,7 +80,7 @@ test('stock RPCs are service-only and the new food transaction consumes once wit
   const db = await testDatabase();
   try {
     const status = await scalar(db, 'select backend_status()');
-    assert.equal(status.schemaVersion, 5);
+    assert.equal(status.schemaVersion, 6);
     assert.equal(status.catalogReady, true);
     await db.query(
       "update inventory set quantity=0 where user_id=$1 and product_id in ('tuna','kibble','makanan')",

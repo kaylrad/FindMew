@@ -1,13 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { Map, Marker, LngLatBounds, NavigationControl, setWorkerUrl } from 'maplibre-gl';
-import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import './explorer-map.css';
+import { Map, Marker, LngLatBounds, NavigationControl } from 'maplibre-gl';
+import { MAP_STYLE_URL, DEFAULT_VIEW, isGpuFailure, labelZoomControls } from './map-config';
 
-// Vite emits the worker on our origin; no blob worker or external script is required.
-setWorkerUrl(workerUrl);
-const MAP_STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty';
-const initialView = { center: [106.819, -6.2], zoom: 13 };
+const initialView = DEFAULT_VIEW;
 
 function publicMarker(item, onSelect) {
   const button = document.createElement('button');
@@ -87,16 +82,7 @@ export default function ExplorerMap({
       map.touchZoomRotate.disableRotation();
       map.addControl(new NavigationControl({ showCompass: false }), 'top-left');
       map.getCanvas().setAttribute('aria-label', 'Peta pertemuan kucing');
-      const zoomIn = node.querySelector('.maplibregl-ctrl-zoom-in');
-      const zoomOut = node.querySelector('.maplibregl-ctrl-zoom-out');
-      if (zoomIn) {
-        zoomIn.title = 'Perbesar peta';
-        zoomIn.setAttribute('aria-label', 'Perbesar peta');
-      }
-      if (zoomOut) {
-        zoomOut.title = 'Perkecil peta';
-        zoomOut.setAttribute('aria-label', 'Perkecil peta');
-      }
+      labelZoomControls(node);
       map.on('load', () => {
         if (disposed || gpuUnavailable) return;
         loaded = true;
@@ -111,10 +97,7 @@ export default function ExplorerMap({
       });
       map.on('error', (event) => {
         if (gpuUnavailable) return;
-        if (
-          event.error?.name === 'GPUInitializationError' ||
-          /WebGL|GPU|graphics context/i.test(event.error?.message || '')
-        ) {
+        if (isGpuFailure(event.error)) {
           gpuUnavailable = true;
           clearTimeout(timeout);
           if (!disposed)

@@ -19,7 +19,7 @@ test('all migrations and seed initialize a usable backend schema', async () => {
     2
   );
   const health = await scalar('select backend_status()');
-  assert.equal(health.schemaVersion, 5);
+  assert.equal(health.schemaVersion, 6);
   assert.equal(health.catalogReady, true);
 });
 test('collection receipts reward once and survive deletion', async () => {

@@ -7,6 +7,7 @@ export const DEMO_USER = '11111111-1111-4111-8111-111111111111';
 export const OTHER_USER = '22222222-2222-4222-8222-222222222222';
 const stamp = () => new Date().toISOString();
 const visible = (c) => !c.deleted_at;
+const profilePhotoFile = (id) => 'profile-' + id + '.webp';
 
 export class DemoStore {
   constructor(config) {
@@ -64,9 +65,30 @@ export class DemoStore {
     this.db.uploads ??= {};
     this.db.deletions ??= {};
     let migrated = false;
-    for (const collection of this.db.collections)
+    if (!this.db.likes) {
+      // Seed one like from Raka so the demo shows a liked collection straight away.
+      const liked = this.db.collections.find(
+        (c) => c.user_id === DEMO_USER && c.visibility === 'public' && visible(c)
+      );
+      this.db.likes = liked
+        ? [{ collection_id: liked.id, user_id: OTHER_USER, created_at: stamp() }]
+        : [];
+      migrated = true;
+    }
+    for (const collection of this.db.collections) {
       if (collection.fed == null) {
         collection.fed = false;
+        migrated = true;
+      }
+      const likes = this.db.likes.filter((like) => like.collection_id === collection.id).length;
+      if (collection.like_count !== likes) {
+        collection.like_count = likes;
+        migrated = true;
+      }
+    }
+    for (const user of Object.values(this.db.users))
+      if (!Object.hasOwn(user.profile, 'photo_updated_at')) {
+        user.profile.photo_updated_at = null;
         migrated = true;
       }
     for (const user of Object.values(this.db.users))
@@ -93,6 +115,7 @@ export class DemoStore {
           bio: 'Menemukan bahagia, satu meow setiap hari. 🌿',
           avatar: '🐱',
           coins: 150,
+          photo_updated_at: null,
         },
         pet: {
           user_id: id,
@@ -187,7 +210,12 @@ export class DemoStore {
       total: rows.length,
     };
   }
-  mapItem(c, id, detail = false) {
+  likedBy(id) {
+    return new Set(
+      this.db.likes.filter((like) => like.user_id === id).map((like) => like.collection_id)
+    );
+  }
+  mapItem(c, id, detail = false, liked = this.likedBy(id)) {
     const profile = this.db.users[c.user_id].profile;
     return {
       id: c.id,
@@ -199,6 +227,8 @@ export class DemoStore {
       owned: c.user_id === id,
       uploader: profile.name,
       avatar: profile.avatar,
+      like_count: c.like_count || 0,
+      liked: liked.has(c.id),
       ...(detail ? { notes: c.notes, fed: c.fed === true } : {}),
     };
   }
@@ -213,8 +243,9 @@ export class DemoStore {
           (c.user_id === id || c.visibility === 'public')
       )
       .sort((a, b) => b.created_at.localeCompare(a.created_at) || a.id.localeCompare(b.id));
+    const liked = this.likedBy(id);
     return {
-      items: rows.slice(offset, offset + limit).map((c) => this.mapItem(c, id)),
+      items: rows.slice(offset, offset + limit).map((c) => this.mapItem(c, id, false, liked)),
       total: rows.length,
     };
   }
@@ -277,6 +308,7 @@ export class DemoStore {
         user_id: id,
         ...data,
         fed: data.fed === true,
+        like_count: 0,
         photo_path: job.photo_path,
         created_at: stamp(),
         updated_at: stamp(),
@@ -316,9 +348,60 @@ export class DemoStore {
           if (e.code !== 'ENOENT') throw e;
         });
       this.db.collections = this.db.collections.filter((c) => c.id !== cid);
+      this.db.likes = this.db.likes.filter((like) => like.collection_id !== cid);
       delete this.db.deletions[cid];
       return true;
     });
+  }
+  async setLike(id, cid, liked) {
+    return this.atomic(() => {
+      const c = this.db.collections.find(
+        (c) => c.id === cid && visible(c) && c.visibility === 'public'
+      );
+      if (!c) fail('NOT_FOUND');
+      if (c.user_id === id) fail('OWN_COLLECTION_LIKE');
+      const index = this.db.likes.findIndex(
+        (like) => like.collection_id === cid && like.user_id === id
+      );
+      if (liked && index < 0) {
+        this.db.likes.push({ collection_id: cid, user_id: id, created_at: stamp() });
+        c.like_count = (c.like_count || 0) + 1;
+      } else if (!liked && index >= 0) {
+        this.db.likes.splice(index, 1);
+        c.like_count = Math.max(0, (c.like_count || 0) - 1);
+      }
+      return { id: c.id, liked, like_count: c.like_count || 0 };
+    });
+  }
+  async setProfilePhoto(id, buffer) {
+    return this.atomic(async () => {
+      const user = this.db.users[id];
+      if (!user) fail('NOT_FOUND');
+      await writeFile(path.join(this.config.dataDir, 'photos', profilePhotoFile(id)), buffer);
+      user.profile.photo_updated_at = stamp();
+      return user.profile;
+    });
+  }
+  async removeProfilePhoto(id) {
+    const profile = await this.atomic(() => {
+      const user = this.db.users[id];
+      if (!user) fail('NOT_FOUND');
+      user.profile.photo_updated_at = null;
+      return user.profile;
+    });
+    await unlink(path.join(this.config.dataDir, 'photos', profilePhotoFile(id))).catch(() => {});
+    return profile;
+  }
+  async profilePhoto(id) {
+    await this.queue;
+    if (!this.db.users[id]?.profile.photo_updated_at) fail('NOT_FOUND');
+    try {
+      return {
+        buffer: await readFile(path.join(this.config.dataDir, 'photos', profilePhotoFile(id))),
+      };
+    } catch {
+      throw new AppError('PHOTO_UNAVAILABLE', 'Foto belum dapat dimuat.', 503);
+    }
   }
   async deleteCollection(id, cid) {
     await this.atomic(() => {

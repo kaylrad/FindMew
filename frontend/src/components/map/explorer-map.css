@@ -51,6 +51,48 @@
   outline: 3px solid #566b42;
   outline-offset: 4px;
 }
+/* Location picker: the same paw pin, fixed at the map centre with its tip on the chosen point. */
+.findmew-picker {
+  position: relative;
+  height: min(56dvh, 460px);
+  min-height: 300px;
+  overflow: hidden;
+  border: 1px solid #e9e8dc;
+  border-radius: 20px;
+  background: #e8eddf;
+}
+.findmew-picker-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  cursor: default;
+  pointer-events: none;
+  transform: translate(-50%, -100%);
+  transition: transform 0.18s ease-out;
+}
+.findmew-picker[data-moving='true'] .findmew-picker-pin {
+  transform: translate(-50%, calc(-100% - 12px));
+}
+.findmew-picker-target {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 14px;
+  height: 6px;
+  border-radius: 50%;
+  background: #3f453459;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.18s ease-out,
+    opacity 0.18s ease-out;
+}
+.findmew-picker[data-moving='true'] .findmew-picker-target {
+  opacity: 0.5;
+  transform: translate(-50%, -50%) scale(1.6);
+}
 .findmew-map-location {
   display: block;
   width: 18px;

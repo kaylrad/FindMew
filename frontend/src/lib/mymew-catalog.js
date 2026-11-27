@@ -27,6 +27,7 @@ export const mewCats = [
   },
 ];
 
+// `wall` is the wall fill from each room's Figma art; text on it uses lib/wall-contrast.js.
 export const mewRooms = [
   {
     id: 'hangat',
@@ -34,6 +35,7 @@ export const mewRooms = [
     description: 'Krem alami',
     src: local('rooms-IlustrasiRuanganHangat.svg'),
     sceneSrc: null,
+    wall: '#F6EBDD',
   },
   {
     id: 'senja',
@@ -41,6 +43,7 @@ export const mewRooms = [
     description: 'Abu-abu teduh',
     src: local('rooms-IlustrasiRuanganSenja.svg'),
     sceneSrc: local('room-senja.svg'),
+    wall: '#575965',
   },
   {
     id: 'rimbun',
@@ -48,6 +51,7 @@ export const mewRooms = [
     description: 'Hijau tenang',
     src: local('rooms-IlustrasiRuanganRimbun.svg'),
     sceneSrc: local('room-rimbun.svg'),
+    wall: '#496046',
   },
 ];
 

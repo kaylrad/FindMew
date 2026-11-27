@@ -22,6 +22,8 @@ const messages = {
   REQUEST_CONFLICT: ['Identitas permintaan sudah dipakai untuk aksi berbeda.', 409],
   REQUEST_ALREADY_USED: ['Foto dari permintaan ini sudah dihapus. Ambil foto baru.', 409],
   UPLOAD_NOT_READY: ['Upload belum siap. Silakan coba lagi.', 409],
+  OWN_COLLECTION_LIKE: ['Like hanya untuk koleksi penjelajah lain.', 409],
+  INVALID_LIKE: ['Status like tidak valid.', 400],
 };
 export function databaseError(error) {
   for (const [code, [message, status]] of Object.entries(messages))
