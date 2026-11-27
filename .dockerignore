@@ -1,9 +1,0 @@
-node_modules
-frontend/dist
-backend/.data
-.git
-.env
-**/.env
-**/.env.*
-artifacts
-*.log

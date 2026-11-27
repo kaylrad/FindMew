@@ -37,25 +37,18 @@ export default function AuthScreen() {
             <Heart size={35} strokeWidth={1.2} />
           </span>
           <AuthCat className="mx-auto w-[95%]" />
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#fff9eb] px-5 py-2 text-xs text-[#a69675]">
-            Ada bahagia di setiap meow.
-          </div>
         </div>
       </div>
       <div>
-        <p className="eyebrow">
-          <Leaf size={12} className="mr-1 inline" /> RUMAH UNTUK SETIAP MEOW
-        </p>
         <h1 className="mt-4 text-[38px] font-black leading-[1.2] tracking-tight md:text-5xl">
-          Temukan.
+          Selamat.
           <br />
-          Abadikan.
+          Datang di
           <br />
-          <span className="text-[#d29c78]">Sayangi.</span>
+          <span className="text-[#d29c78]">FindMew.</span>
         </h1>
         <p className="mt-5 max-w-sm text-sm leading-7 text-muted">
-          Kumpulkan pertemuan kecil dengan kucing di sekitarmu. Bawa pulang kenangan dan kebahagiaan
-          untuk MyMew.
+          Silahkan Login untuk kumpulkan koleksi Kucing!
         </p>
         <form onSubmit={submit} className="mt-7 space-y-4">
           {config.demo ? (

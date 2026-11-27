@@ -25,6 +25,11 @@
     "prettier": "3.10.1",
     "supertest": "^7.1.1"
   },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 100
+  },
   "engines": {
     "node": "22.x"
   }
