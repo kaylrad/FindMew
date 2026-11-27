@@ -3,6 +3,9 @@ import { createHash } from 'node:crypto';
 import { AppError, databaseError, fail } from '../errors.js';
 import { effectivePet, petOptions } from './catalog.js';
 const profilePhotoPath = (id) => 'profiles/' + id + '.webp';
+// collection_likes also links collections to profiles, so the uploader embed must name the
+// collections.user_id relationship; a bare profiles!inner is ambiguous (PostgREST PGRST201).
+const UPLOADER = 'profiles!user_id!inner(name,avatar)';
 
 export class SupabaseStore {
   constructor(config, { fetch: transport = globalThis.fetch } = {}) {
@@ -113,7 +116,7 @@ export class SupabaseStore {
   async publicMap(id, { offset = 0, limit = 100 } = {}) {
     let q = this.client
       .from('collections')
-      .select('id,name,latitude,longitude,created_at,profiles!inner(name,avatar)', {
+      .select('id,name,latitude,longitude,created_at,' + UPLOADER, {
         count: 'exact',
       })
       .eq('visibility', 'public')
@@ -150,7 +153,7 @@ export class SupabaseStore {
       this.client
         .from('collections')
         .select(
-          `id,user_id,name,visibility,latitude,longitude,created_at,${social ? 'like_count,' : ''}profiles!inner(name,avatar)`,
+          `id,user_id,name,visibility,latitude,longitude,created_at,${social ? 'like_count,' : ''}${UPLOADER}`,
           { count: 'exact' }
         )
         .or(`user_id.eq.${id},visibility.eq.public`)
@@ -184,7 +187,7 @@ export class SupabaseStore {
       this.client
         .from('collections')
         .select(
-          `id,user_id,name,notes,visibility,fed,latitude,longitude,created_at,${social ? 'like_count,' : ''}profiles!inner(name,avatar)`
+          `id,user_id,name,notes,visibility,fed,latitude,longitude,created_at,${social ? 'like_count,' : ''}${UPLOADER}`
         )
         .eq('id', cid)
         .or(`user_id.eq.${id},visibility.eq.public`)

@@ -233,19 +233,35 @@ export async function supabaseTransport() {
       }
       const where = filters.length ? ' where ' + filters.join(' and ') : '';
       const projection = url.searchParams.get('select') || '*';
-      const select = projection.includes('profiles!inner')
-        ? projection
-            .slice(0, projection.indexOf(',profiles!inner'))
-            .split(',')
-            .map((c) => 't.' + ident(c))
-            .join(',') +
-          ",(select jsonb_build_object('name',p.name,'avatar',p.avatar) from profiles p where p.id=t.user_id) as profiles"
-        : projection === '*'
-          ? 't.*'
-          : projection
+      // Like PostgREST: once collection_likes links collections and profiles a second way,
+      // an embed without the user_id hint is ambiguous and answers 300 PGRST201.
+      if (
+        projection.includes(',profiles!inner(') &&
+        (await db.query("select to_regclass('public.collection_likes') as t")).rows[0].t
+      )
+        return json(
+          {
+            code: 'PGRST201',
+            message:
+              "Could not embed because more than one relationship was found for 'collections' and 'profiles'",
+          },
+          300
+        );
+      const embed = projection.indexOf(',profiles!user_id!inner(');
+      const select =
+        embed >= 0
+          ? projection
+              .slice(0, embed)
               .split(',')
               .map((c) => 't.' + ident(c))
-              .join(',');
+              .join(',') +
+            ",(select jsonb_build_object('name',p.name,'avatar',p.avatar) from profiles p where p.id=t.user_id) as profiles"
+          : projection === '*'
+            ? 't.*'
+            : projection
+                .split(',')
+                .map((c) => 't.' + ident(c))
+                .join(',');
       const order = (url.searchParams.get('order') || '')
         .split(',')
         .filter(Boolean)
