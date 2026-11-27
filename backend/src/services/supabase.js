@@ -35,17 +35,48 @@ export class SupabaseStore {
   async ensureUser(id, name) {
     await this.rpc('initialize_user', { p_user: id, p_name: name || 'Teman Mew' });
   }
+  // Likes and profile photos need schemaVersion 6. Until that migration runs, every older
+  // feature keeps working and the new ones answer MIGRATION_REQUIRED. Re-checked each minute,
+  // so running the migration switches them on without a redeploy.
+  async socialReady() {
+    const now = Date.now();
+    if (!this.socialCheck || now - this.socialCheck.at > 60000) {
+      const check = { at: now };
+      check.ready = this.rpc('backend_status', {})
+        .then((status) => (status?.schemaVersion ?? 0) >= 6)
+        .catch(() => {
+          if (this.socialCheck === check) this.socialCheck = null;
+          return false;
+        });
+      this.socialCheck = check;
+    }
+    return this.socialCheck.ready;
+  }
+  async requireSocial() {
+    if (!(await this.socialReady()))
+      throw new AppError(
+        'MIGRATION_REQUIRED',
+        'Fitur ini aktif setelah database diperbarui. Jalankan migration terbaru di Supabase.',
+        503
+      );
+  }
   async health() {
     const status = await this.rpc('backend_status', {});
     const { data, error } = await this.client.storage.getBucket(this.config.bucket);
     if (
       !status?.database ||
-      status.schemaVersion < 6 ||
+      status.schemaVersion < 5 ||
       !status.catalogReady ||
       error ||
       data?.public !== false
     )
       throw new AppError('NOT_READY', 'Database, katalog, atau bucket privat belum siap.', 503);
+    if (status.schemaVersion < 6)
+      throw new AppError(
+        'MIGRATION_PENDING',
+        'Database tersambung, tetapi migration terbaru (schemaVersion 6) belum dijalankan. Like dan foto profil belum aktif.',
+        503
+      );
     return { database: true, storage: true, schemaVersion: status.schemaVersion };
   }
   async state(id) {
@@ -102,8 +133,8 @@ export class SupabaseStore {
       total: count,
     };
   }
-  async likedBy(id, ids) {
-    if (!ids.length) return new Set();
+  async likedBy(id, ids, social) {
+    if (!social || !ids.length) return new Set();
     const { data } = await this.query(
       this.client
         .from('collection_likes')
@@ -114,11 +145,12 @@ export class SupabaseStore {
     return new Set(data.map((row) => row.collection_id));
   }
   async exploreMap(id, { offset = 0, limit = 100 } = {}) {
+    const social = await this.socialReady();
     const { data, count } = await this.query(
       this.client
         .from('collections')
         .select(
-          'id,user_id,name,visibility,latitude,longitude,created_at,like_count,profiles!inner(name,avatar)',
+          `id,user_id,name,visibility,latitude,longitude,created_at,${social ? 'like_count,' : ''}profiles!inner(name,avatar)`,
           { count: 'exact' }
         )
         .or(`user_id.eq.${id},visibility.eq.public`)
@@ -131,10 +163,12 @@ export class SupabaseStore {
     );
     const liked = await this.likedBy(
       id,
-      data.map((item) => item.id)
+      data.map((item) => item.id),
+      social
     );
     return {
       items: data.map(({ profiles, user_id, ...item }) => ({
+        like_count: 0,
         ...item,
         owned: user_id === id,
         liked: liked.has(item.id),
@@ -145,11 +179,12 @@ export class SupabaseStore {
     };
   }
   async mapDetail(id, cid) {
+    const social = await this.socialReady();
     const { data } = await this.query(
       this.client
         .from('collections')
         .select(
-          'id,user_id,name,notes,visibility,fed,latitude,longitude,created_at,like_count,profiles!inner(name,avatar)'
+          `id,user_id,name,notes,visibility,fed,latitude,longitude,created_at,${social ? 'like_count,' : ''}profiles!inner(name,avatar)`
         )
         .eq('id', cid)
         .or(`user_id.eq.${id},visibility.eq.public`)
@@ -160,8 +195,9 @@ export class SupabaseStore {
     );
     if (!data) fail('NOT_FOUND');
     const { profiles, user_id, ...item } = data;
-    const liked = await this.likedBy(id, [item.id]);
+    const liked = await this.likedBy(id, [item.id], social);
     return {
+      like_count: 0,
       ...item,
       owned: user_id === id,
       liked: liked.has(item.id),
@@ -170,6 +206,7 @@ export class SupabaseStore {
     };
   }
   async setLike(id, cid, liked) {
+    await this.requireSocial();
     return this.rpc('set_collection_like', { p_user: id, p_collection: cid, p_liked: liked });
   }
   async createCollection(id, data, file, key, hash) {
@@ -270,6 +307,7 @@ export class SupabaseStore {
     ).data;
   }
   async setProfilePhoto(id, buffer) {
+    await this.requireSocial();
     // One object per user: a new upload replaces the old photo, so nothing is left behind.
     const { error } = await this.storage.upload(profilePhotoPath(id), buffer, {
       contentType: 'image/webp',
@@ -280,12 +318,14 @@ export class SupabaseStore {
     return this.updateProfile(id, { photo_updated_at: new Date().toISOString() });
   }
   async removeProfilePhoto(id) {
+    await this.requireSocial();
     const profile = await this.updateProfile(id, { photo_updated_at: null });
     // The row no longer points at the file; a failed removal is overwritten by the next upload.
     await this.storage.remove([profilePhotoPath(id)]).catch(() => {});
     return profile;
   }
   async profilePhoto(id) {
+    if (!(await this.socialReady())) fail('NOT_FOUND');
     const { data } = await this.query(
       this.client.from('profiles').select('photo_updated_at').eq('id', id).maybeSingle()
     );

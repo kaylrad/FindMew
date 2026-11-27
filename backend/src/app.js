@@ -87,7 +87,8 @@ export async function createApp(
       try {
         const result = await store.health();
         res.json({ ok: true, mode: config.demo ? 'demo' : 'supabase', ...result });
-      } catch {
+      } catch (error) {
+        if (error?.code === 'MIGRATION_PENDING') throw error;
         throw new AppError(
           'NOT_READY',
           'Backend belum siap. Periksa koneksi database, migration, dan bucket privat.',
